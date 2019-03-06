@@ -54,3 +54,24 @@ $ service iptables start                                     # 开启
 $ service iptables stop                                      # 关闭
 ```
 
+##### JDK安装配置
+```bash
+$ sudo mkdir /usr/lib/jvm                                    # 创建 目录
+$ scp ./jdk-8u112-linux-x64.tar.gz /usr/lib/jvm              # 复制文件
+$ cd /usr/lib/jvm                                            # 跳转目录
+$ tar -zxvf jdk-8u112-linux-x64.tar.gz                       # 解压
+$ rm -rf jdk-8u112-linux-x64.tar.gz                          # 删除
+
+$ vi ~/.bashrc                                               # 配置环境变量 （以后以当前账号登陆才有jdk）添加如下内容
+# set oracle jdk environment
+export JAVA_HOME=/usr/lib/jvm/jdk1.8.0_171
+export JRE_HOME=${JAVA_HOME}/jre  
+export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib  
+export PATH=${JAVA_HOME}/bin:$PATH 
+
+$ source ~/.bashrc                                           # 重读配置，使环境变量生效
+$ java  -version                                             # 测试java是否安装成功
+
+```
+
+

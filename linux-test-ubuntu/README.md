@@ -152,7 +152,7 @@ $ sc delete 服务名              # window删除服务<服务名空格，将服
 $ cd /cygdrive                  # 进入电脑根目录
 ```
 
-##### 配置java环境变量[vi /etc/profile]在文件末加入如下配置
+##### 安装配置java环境变量[vi /etc/profile]在文件末加入如下配置
 ```bash
 export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64 
 export PATH=$JAVA_HOME/bin:$PATH 
@@ -162,4 +162,15 @@ export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
 $ source /etc/profile           # 重新装载配置文件，也就是配了环境变量不需要从新登陆
 $ which java                    # 查找java程序安装目录
 $ java -version                 # 查看java是否安装成功
+```
+
+##### 配置默认JDK（自带的）
+```bash
+$ sudo update-alternatives --config java                                                                 # 检查
+ 
+$ sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/jdk1.8.0_112/bin/java 300           # 一次执行以下命令
+$ sudo update-alternatives --install /usr/bin/javac javac /usr/lib/jvm/jdk1.8.0_112/bin/javac 300  
+$ sudo update-alternatives --install /usr/bin/jar jar /usr/lib/jvm/jdk1.8.0_112/bin/jar 300   
+$ sudo update-alternatives --install /usr/bin/javah javah /usr/lib/jvm/jdk1.8.0_112/bin/javah 300   
+$ sudo update-alternatives --install /usr/bin/javap javap /usr/lib/jvm/jdk1.8.0_112/bin/javap 300
 ```
