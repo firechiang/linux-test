@@ -24,7 +24,7 @@ $ chkconfig iptables on                                      # 开启防火墙
 $ chkconfig iptables off                                     # 关闭防火墙，永久性生效，重启后不会复原
 ```
 
-##### firewall防火墙相关命令
+##### firewall 防火墙相关命令
 ```bash
 $ firewall-cmd --state                                       # 查看防火墙状态
 $ firewall-cmd --list-ports                                  # 查看已经开放的端口
