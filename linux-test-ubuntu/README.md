@@ -55,20 +55,20 @@ $ sudo adduser hduser sudo
 
 ##### 文件解压相关命令
 ```bash
-.xz文件解压                                                          # 先执行 "xz -d 文件名" 会变成 tar 文件，再执行  "tar -xvf 文件名" 解压
+.xz文件解压                      # 先执行 "xz -d 文件名" 会变成 tar 文件，再执行  "tar -xvf 文件名" 解压
 $ tar -zxvf a.zip               # 解压a.zip文件到当前目录
 
 ```
 
 ##### 权限相关命令
 ```bash
-$ chmod +x 文件名                                         # 为文件添加一个执行权限
-$ chmod 755 文件名                                      # 修改文件夹权限为755 
+$ chmod +x 文件名               # 为文件添加一个执行权限
+$ chmod 755 文件名              # 修改文件夹权限为755 
 ```
 
 ##### 查看文件内容相关命令
 ```bash
-$ tail -111f 文件名                                    # 动态显示文件内容（最多显示 111 行）
+$ tail -111f 文件名              # 动态显示文件内容（最多显示 111 行）
 $ more a.text                   # 查看文件内容（分段显示）
 $ cat a.text                    # 正叙查看文件内容
 $ tac a.text                    # 倒叙查看文件内容
@@ -99,7 +99,7 @@ $ ln -sf /home/hadoop /home/h   # 创建快捷方式 从/home/hadoop 到 /home/h
 按a进入编辑模式
 $ dd                            # 删除一行
 $ dw                            # 删除一个单词
-$ o 和 O                         # 插入一行<向上向下>
+$ o 和 O                        # 插入一行<向上向下>
 $ x                             # 删除一个字
 $ /name                         # 搜索名字叫name的位置
 
@@ -115,8 +115,8 @@ $ :q!                           # 放弃修改退出
 ##### netstat网络资源占用相关命令
 ```bash
 $ netstat -ntlp                 # 查看端口占用情况
-$ netstat -nplt | grep 端口号         # 查看每个端口是否在用
-$ netstat -nplt | grep 服务名         # 查看每个服务名是否监听端口
+$ netstat -nplt | grep 端口号    # 查看每个端口是否在用
+$ netstat -nplt | grep 服务名    # 查看每个服务名是否监听端口
 ```
 
 ##### ubuntu防火墙相关命令
@@ -130,7 +130,7 @@ $ sudo apt-get remove ufw       # ubuntu卸载防火墙
 
 ##### 进程相关命令
 ```bash
-$ kill -9 进程号                                            # 杀死进程
+$ kill -9 进程号                 # 杀死进程
 $ ps -A | grep nginx            # 查询进程 名字为  nginx
 ```
 
@@ -148,7 +148,7 @@ $ df -h                         # 查看各个磁盘的分区情况，容量，�
 
 ##### cygdrive专用命令
 ```bash
-$ sc delete 服务名                                      # window删除服务<服务名空格，将服务名用双引号包起来>            
+$ sc delete 服务名              # window删除服务<服务名空格，将服务名用双引号包起来>            
 $ cd /cygdrive                  # 进入电脑根目录
 ```
 
