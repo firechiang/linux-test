@@ -67,7 +67,7 @@ $ vi ~/.bashrc                                               # 配置环境变�
 export JAVA_HOME=/usr/lib/jvm/jdk1.8.0_171
 export JRE_HOME=${JAVA_HOME}/jre  
 export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib  
-export PATH=${JAVA_HOME}/bin:$PATH 
+export PATH=$PATH:${JAVA_HOME}/bin
 
 $ source ~/.bashrc                                           # 重读配置，使环境变量生效
 $ java  -version                                             # 测试java是否安装成功
