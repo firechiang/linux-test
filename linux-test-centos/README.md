@@ -74,4 +74,8 @@ $ java  -version                                             # 测试java是否�
 
 ```
 
-
+##### 监控命令
+```bash
+$ yum install -y sysstat                                     # 安装监控插件
+$ mpstat -P ALL 2                                            # 查看CPU各个链路使用情况
+```
