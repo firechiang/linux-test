@@ -16,6 +16,7 @@ $ ls -a                                                      # 查看所有文�
 ##### 权限相关命令
 ```bash
 $ chmod -r 777 文件夹名                                                                                                      # 将文件夹的权限设置为777，这样在这个文件夹里面就有写的权限了
+$ chown elk-admin:elk-admin tools                            # 将tools文件夹的权限授给elk-admin账号（登录到root账号执行）  
 ```
 
 #### 全局防火墙相关命令
