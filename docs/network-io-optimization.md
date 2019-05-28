@@ -9,5 +9,8 @@ $ sysctl fs.nr_open                                   # 查看单个进程最多
 $ echo 'fs.nr_open = 1048576' >> /etc/sysctl.conf     # 修改单个进程最多同时打开的文件句柄数量（建议使用默认值）
 
 # 查询文件句柄数信息(这个只能做查询)，三个值，分别是：系统中已分配的文件句柄数量，已分配但没有使用的文件句柄数量，最大的文件句柄号
-$ sysctl fs.file-nr                
+$ sysctl fs.file-nr    
+
+# 查看所有文件句柄数描述信息
+$ ulimit -a                                                              
 ```
