@@ -31,6 +31,22 @@ $ echo 'net.ipv4.tcp_rmem = 4096 87380 6291456' >> /etc/sysctl.conf     # 修改
 $ echo 'net.ipv4.tcp_wmem = 4096 16384 4194304' >> /etc/sysctl.conf     # 修改写的缓冲区内存大小
 ```
 
+#### 是否允许将TIME-WAIT sockets重新用于新的TCP连接，建议使用默认值（只对客户端起作用，开启后客户端在1s内回收），0 不开启，1 开启（默认值都是：0）
+```bash
+$ sysctl net.ipv4.tcp_tw_reuse                                          # 查看
+
+$ echo 'net.ipv4.tcp_tw_reuse = 1' >> /etc/sysctl.conf                  # 修改
+```
+
+#### 是否开启TCP连接中TIME-WAIT sockets的快速回收，建议使用默认值（ 对客户端和服务器同时起作用，开启后在 3.5*RTO 内回收，RTO 200ms~ 120s 具体时间视网络状况，优点就是能够回收服务端的TIME_WAIT数量），0 不开启，1 开启（默认为0）
+```bash
+$ sysctl net.ipv4.tcp_tw_recycle                                        # 查看
+
+$ echo 'net.ipv4.tcp_tw_recycle = 1' >> /etc/sysctl.conf                # 修改
+```
+
+#### -------------------------------以下是可选优化-----------------------------------------------------------
+
 #### 最大孤儿套接字(orphan sockets)数，单位是个（默认值 8192）（注意：当cat /proc/net/sockstat看到的orphans数量达到net.ipv4.tcp_max_orphans的约一半时，就会报：Out of socket memory）
 ```bash
 $ sysctl net.ipv4.tcp_max_orphans                                       # 查看最大孤儿套接字(orphan sockets)数
@@ -63,20 +79,6 @@ $ echo 'net.ipv4.tcp_synack_retries = 3' >> /etc/sysctl.conf            # 修改
 $ sysctl net.ipv4.tcp_fin_timeout                                       # 查看FIN_WAIT状态的TCP连接的超时时间
 
 $ echo 'net.ipv4.tcp_fin_timeout = 30' >> /etc/sysctl.conf              # 查看FIN_WAIT状态的TCP连接的超时时间
-```
-
-#### 是否允许将TIME-WAIT sockets重新用于新的TCP连接，建议使用默认值（只对客户端起作用，开启后客户端在1s内回收），0 不开启，1 开启（默认值都是：0）
-```bash
-$ sysctl net.ipv4.tcp_tw_reuse                                          # 查看
-
-$ echo 'net.ipv4.tcp_tw_reuse = 1' >> /etc/sysctl.conf                  # 修改
-```
-
-#### 是否开启TCP连接中TIME-WAIT sockets的快速回收，建议使用默认值（ 对客户端和服务器同时起作用，开启后在 3.5*RTO 内回收，RTO 200ms~ 120s 具体时间视网络状况，优点就是能够回收服务端的TIME_WAIT数量），0 不开启，1 开启（默认为0）
-```bash
-$ sysctl net.ipv4.tcp_tw_recycle                                        # 查看
-
-$ echo 'net.ipv4.tcp_tw_recycle = 1' >> /etc/sysctl.conf                # 修改
 ```
 
 #### TCP连接SYN队列大小（默认值：128）
