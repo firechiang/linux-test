@@ -80,3 +80,23 @@ $ java  -version                                             # 测试java是否�
 $ yum install -y sysstat                                     # 安装监控插件
 $ mpstat -P ALL 2                                            # 查看CPU各个链路使用情况
 ```
+
+##### 创建用户并赋权
+```bash
+$ useradd elk-admin                                    # 创建 elk-admin 用户
+$ echo "jiang" | passwd --stdin elk-admin              # 为elk-admin 用户创建密码，密码是：jiang
+# 为elk-admin 用户授权，并生成授权文件
+$ echo "elk-admin ALL = (root) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/elk-admin  
+$ cat /etc/sudoers.d/elk-admin                         # 查看授权文件
+$ chmod 0440 /etc/sudoers.d/elk-admin                  # 修改授权文件权限
+$ chown elk-admin:elk-admin /home /home/tools          # 将/home和/home/tools两个目录的权限授给elk-admin用户
+$ su elk-admin                                         # 切换到elk-admin
+```
+##### 创建用户和用户组并禁止用户登录
+```bash
+# 创建 haproxy 用户组
+$ sudo groupadd -r -g 149 haproxy
+# 创建 haproxy 用户，并且配置 haproxy 用户没有登录权限
+$ sudo useradd -g haproxy -r -s /sbin/nologin -u 149 haproxy
+```
+
