@@ -85,7 +85,7 @@ $ mpstat -P ALL 2                                            # 查看CPU各个�
 ```bash
 $ useradd elk-admin                                    # 创建 elk-admin 用户
 $ echo "jiang" | passwd --stdin elk-admin              # 为elk-admin 用户创建密码，密码是：jiang
-# 为elk-admin 用户授权，并生成授权文件
+# 为elk-admin 用户授权，并生成授权文件（从root账号切换过来不需要使用密码）
 $ echo "elk-admin ALL = (root) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/elk-admin  
 $ cat /etc/sudoers.d/elk-admin                         # 查看授权文件
 $ chmod 0440 /etc/sudoers.d/elk-admin                  # 修改授权文件权限
