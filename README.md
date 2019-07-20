@@ -23,7 +23,7 @@ Partition type:
    p   primary (0 primary, 0 extended, 4 free)
    e   extended
 Select (default p): p                 #（p=创建主分区，e=创建扩展分区）
-Partition number (1-4, default 1): 1  # 当前磁盘分区号（最大是4，详情请看上面的注意事项）
+Partition number (1-4, default 1): 1  # 当前磁盘的分区号（一块磁盘最多4个分区，所以最大是4，详情请看上面的注意事项）
 First sector (2048-20971519, default 2048): 
 Using default value 2048              # 分区容量从哪个位置开始
 Last sector, +sectors or +size{K,M,G} (2048-20971519, default 20971519): 
