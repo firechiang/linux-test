@@ -24,9 +24,9 @@ Partition type:
 Select (default p): p                 #（p=创建主分区，e=创建扩展分区）
 Partition number (1-4, default 1): 1  # 当前磁盘的分区号（一块磁盘最多4个分区，所以最大是4，详情请看上面的注意事项）
 First sector (2048-20971519, default 2048): 
-Using default value 2048              # 分区容量从哪个位置开始
+Using default value 2048              # 分区容量从磁盘容量的哪个位置开始
 Last sector, +sectors or +size{K,M,G} (2048-20971519, default 20971519): 
-Using default value 20971519          # 分区容量到哪个位置结束
+Using default value 20971519          # 分区容量到磁盘容量的哪个位置结束
 Partition 1 of type Linux and of size 10 GiB is set
 
 Command (m for help): w               # 保存分区信息并退出（n=创建新的分区，d=删除分区，p=列出分区列表，w=保存分区信息并退出，q=退出而不保存）
