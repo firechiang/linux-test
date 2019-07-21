@@ -43,6 +43,13 @@ $ mkfs -t ext4 /dev/sdb1              # 格式化新建分区（将新建分区/
 $ echo /dev/sdb1 /mnt/test_data ext4 defaults 0 0 >> /etc/fstab                       
 ```
 
+#### 八、修改时区（注意：建议系统安装时要设置好）
+```bash
+$ timedatectl list-timezones              # 查看系统所支持的所有时区
+$ ls -l /etc/localtime                    # 查看系统当前时区
+$ timedatectl set-timezone Asia/Shanghai  # 修改为中国上海时区（注意：系统所支持的时区里面没有北京）
+```
+
 [1]: https://github.com/firechiang/linux-test/tree/master/docs/ipv4-parameter-optimization.md
 [2]: https://github.com/firechiang/linux-test/tree/master/docs/network-io-optimization.md
 [3]: https://github.com/firechiang/linux-test/tree/master/docs/numa-explain.md
