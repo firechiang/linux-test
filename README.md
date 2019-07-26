@@ -5,7 +5,8 @@
 #### 五、[资源限制][4]
 #### 六、[磁盘IO调度策略(影响程序读写效率)][5]
 #### 七、[Linux Crontab（定时执行）使用和说明][7]
-#### 八、挂载新硬盘以及创建分区（注意：一块磁盘最多只能有4个分区，至少要有一个主分区，最多只能有一个扩展分区。主分区格式化之后就可以使用，扩展分区必须先划分逻辑分区，格式化所有的逻辑分区以后才能使用。主分区和扩展分区都可以安装系统。建议都创建主分区）
+#### 八、[Shell脚本学习记录][8]
+#### 九、挂载新硬盘以及创建分区（注意：一块磁盘最多只能有4个分区，至少要有一个主分区，最多只能有一个扩展分区。主分区格式化之后就可以使用，扩展分区必须先划分逻辑分区，格式化所有的逻辑分区以后才能使用。主分区和扩展分区都可以安装系统。建议都创建主分区）
 ```bash
 $ fdisk -l                            # 查看机器硬盘信息，找到新添加的硬盘名称
 $ fdisk /dev/sdb                      # 管理磁盘
@@ -44,11 +45,11 @@ $ mkfs -t ext4 /dev/sdb1              # 格式化新建分区（将新建分区/
 $ echo /dev/sdb1 /mnt/test_data ext4 defaults 0 0 >> /etc/fstab                       
 ```
 
-#### 九、修改时区（注意：建议系统安装时要设置好）
+#### 十、修改时区（注意：建议系统安装时要设置好）
 ```bash
-$ timedatectl list-timezones              # 查看系统所支持的所有时区
-$ ls -l /etc/localtime                    # 查看系统当前时区
-$ timedatectl set-timezone Asia/Shanghai  # 修改为中国上海时区（注意：系统所支持的时区里面没有北京）
+$ timedatectl list-timezones             # 查看系统所支持的所有时区
+$ ls -l /etc/localtime                   # 查看系统当前时区
+$ timedatectl set-timezone Asia/Shanghai # 修改为中国上海时区（注意：系统所支持的时区里面没有北京）
 ```
 
 [1]: https://github.com/firechiang/linux-test/tree/master/docs/ipv4-parameter-optimization.md
@@ -58,3 +59,4 @@ $ timedatectl set-timezone Asia/Shanghai  # 修改为中国上海时区（注意
 [5]: https://github.com/firechiang/linux-test/tree/master/docs/disk-io-strategy.md
 [6]: https://github.com/firechiang/linux-test/tree/master/docs/bash-simple-use.md
 [7]: https://github.com/firechiang/linux-test/tree/master/docs/linux-crontable-use.md
+[8]: https://github.com/firechiang/linux-test/tree/master/docs/shell/index.md
