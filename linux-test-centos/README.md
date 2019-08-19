@@ -6,6 +6,7 @@ $ ip addr                                                    # 查看ip命令
 $ shutdown -h now                                            # 现在立即关机
 $ shutdown -r now                                            # 现在立即重启
 $ nohup java -jar ./test.jar &                               # 后台启动服务（说明：nohup表示永久执行，客户端用户退出SSH该程序不退出，&表示后台执行，客户端用户退出SSH该程序就会退出。所以nohup+&才能实现真正的后台运行）
+$ hostnamectl set-hostname server006                         # 修改主机名为server006（立即生效且重启生效） 
 ```
 
 
