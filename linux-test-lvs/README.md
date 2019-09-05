@@ -25,3 +25,5 @@ OSI七层网络模型         |  TCP/IP四层概念模型  |  对应的网络协
 应用层（Application）   |                     |  HTTP，TFTP，FTP，NFS，WAIS，SMTP         |
 -----------------------|---------------------|------------------------------------------|
  ```
+#### TCP/IP分层协议模型
+![object](https://github.com/firechiang/linux-test/blob/master/linux-test-lvs/image/tcp-ip.svg)
