@@ -27,5 +27,7 @@ OSI七层网络模型         |  TCP/IP四层概念模型  |  对应的网络协
  ```
 #### TCP/IP分层协议模型
 ![object](https://github.com/firechiang/linux-test/blob/master/linux-test-lvs/image/tcp-ip.svg)
-#### TCP三次握手简要
+#### TCP三次握手简要（注意：握手主要用于建立连接）
 ![object](https://github.com/firechiang/linux-test/blob/master/linux-test-lvs/image/tcp-shake.svg)
+#### TCP四次挥手简要（注意：挥手主要用于关闭连接）
+![object](https://github.com/firechiang/linux-test/blob/master/linux-test-lvs/image/tcp-wave.svg)
