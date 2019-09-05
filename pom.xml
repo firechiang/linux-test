@@ -35,5 +35,6 @@
 	<modules>
 		<module>linux-test-centos</module>
     <module>linux-test-ubuntu</module>
+    <module>linux-test-lvs</module>
   </modules>
 </project>
