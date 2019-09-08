@@ -3,7 +3,7 @@ $ sysctl fs.file-max                                        # 查看系统所有
 $ echo 'fs.file-max=2000000' >> /etc/sysctl.conf            # 修改系统所有进程一共可以打开的文件句柄数量，一般为内存大小（KB）的10%来计算（系统的限制，并不是针对用户）
 
 $ sysctl fs.aio-max-nr                                      # 查看系统同时可以拥有的的异步IO请求数目
-$ echo 'fs.aio-max-nr = 1048576' >> /etc/sysctl.conf        # 修改系统同时可以拥有的的异步IO请求数目，Oracle推荐的值为1048576（1024×1024），也就是1024Kb个
+$ echo 'fs.aio-max-nr = 1048576' >> /etc/sysctl.conf        # 修改系统同时可以拥有的的异步IO请求数目，Oracle推荐的值为1048576（1024×1024），也就是1024Kb个（注意：这个配置可以不修改）
 
 $ sysctl fs.nr_open                                         # 查看单进程最大打开文件句柄数量
 $ echo 'fs.nr_open = 1048576' >> /etc/sysctl.conf           # 修改单进程最大打开文件句柄数量（进程限制）（建议使用默认值）
