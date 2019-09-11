@@ -1,3 +1,21 @@
+#### [LVS 搭建和使用][1]
+
+#### LVS（Linux Virtual Server）组成部分
+ - Ipvs 工作在内核空间，实现集群服务的调度；借鉴了iptables实现
+ - Ipvsadm 工作在用户空间，负责为ipvs内核框架编写规则，定义谁是集群服务，谁是后端服务（就是管理工具）
+ 
+#### LVS（Linux Virtual Server）转发模型
+ - NAT模型：数据入栈时修改目标IP地址为后端实际服务器的IP地址，数据出栈时修改源IP地址为客户端IP地址。这种模式因为数据出入栈都要经过LVS所以在大并发场景下存在性能瓶颈，故不推荐使用
+ - DR模型：数据入栈修改目标MAC地址为后端实际服务器的MAC地址，数据出栈直接由后端实际服务器返回。这种方式效率高推荐生产使用（注意：LVS Server和被代理服务器必须在同一个网段，否则无法使用LVS转发）
+ - TUNNEL：隧道模式（就是数据包套着数据包，里面的那个数据包才是真实的数据包和目的地）较少使用，常用于异地容灾
+ 
+#### LVS（Linux Virtual Server）相关术语
+ - Director Server LVS服务器，即负载均衡器
+ - Real Server 真实服务器，即后端服务器
+ - VIP 直接面向用户的IP地址，通常为公网IP地址
+ - Director Server IP 主要用于和内部主机通信的IP地址
+ - Client IP 客户端IP，就是发起请求的IP地址
+ 
 #### OSI七层网络模型说明（注意：1-7是数据解码过程，7-1是数据编码过程）
  - 1，物理层（Physical）：建立，维护，断开物理连接
  - 2，数据链路层（Data Link）：建立逻辑连接，进行硬件地址寻址，差错校验（就是MAC地址寻址）
@@ -31,3 +49,6 @@ OSI七层网络模型         |  TCP/IP四层概念模型  |  对应的网络协
 ![object](https://github.com/firechiang/linux-test/blob/master/linux-test-lvs/image/tcp-shake.svg)
 #### TCP四次挥手简要（注意：挥手主要用于关闭连接）
 ![object](https://github.com/firechiang/linux-test/blob/master/linux-test-lvs/image/tcp-wave.svg)
+
+
+[1]: https://github.com/firechiang/linux-test/tree/master/linux-test-lvs/docs/ipvsadm-use.md
