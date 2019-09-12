@@ -29,7 +29,7 @@ $ echo 1 > /proc/sys/net/ipv4/conf/ens33/arp_ignore && \
 $ echo 'net.ipv4.conf.ens33.arp_ignore = 1' >> /etc/sysctl.conf && \
   echo 'net.ipv4.conf.all.arp_ignore = 1' >> /etc/sysctl.conf
 
-# 配置自己的地址向外通告的级别，默认是0
+# 配置自己的地址向外通告的级别，默认是0（注意：ens33是当前机器的网卡名称，可以使用ifconfig命令查看。all是指所有网卡）
 # 0 本地任何接口上的任何地址向外通告
 # 1 试图仅向目标网络通告与其网络匹配的地址
 # 2 仅向与本地接口上地址匹配的网络进行通告
