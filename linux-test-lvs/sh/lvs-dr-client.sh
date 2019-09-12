@@ -1,6 +1,7 @@
 #!/bin/bash
-#description:this script to start lvs client for the server
-#version:1.0
+#chkconfig: 2345 80 93
+#description: this script to start lvs client for the server
+#version: 1.0
 #setting variable
 # 虚拟IP（注意修改，而且要和LVS服务器的虚拟IP相同）
 VIP=192.168.83.100
