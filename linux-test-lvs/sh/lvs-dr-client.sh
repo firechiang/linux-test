@@ -9,7 +9,7 @@ VIP=192.168.83.100
 # 数据出栈的虚拟IP的掩码（注意修改，而且不能和LVS的虚拟IP的掩码相同，否则数据无法出栈，会形成一个死循环）
 MASK=255.255.255.255
 # 数据出栈网卡名称（注意修改，可使用ifconfig命令查看）
-export NETWORK_IN_NAME=ens33
+NETWORK_IN_NAME=ens33
 # 数据入栈网卡名称（注意修改，可使用ifconfig命令查看）
 NETWORK_OUT_NAME=lo
 # 数据出栈子网卡的序号（注意修改，8这个值可以随便起，不要重复即可）
@@ -21,9 +21,9 @@ start(){
         echo "LVS client program  already start"
         exit 0
     fi
-    echo "1" > /proc/sys/net/ipv4/conf/${NETWORK_NAME}/arp_ignore
+    echo "1" > /proc/sys/net/ipv4/conf/$NETWORK_IN_NAME/arp_ignore
     echo "1" > /proc/sys/net/ipv4/conf/all/arp_ignore
-    echo "2" > /proc/sys/net/ipv4/conf/${NETWORK_NAME}/arp_announce
+    echo "2" > /proc/sys/net/ipv4/conf/$NETWORK_IN_NAME/arp_announce
     echo "2" > /proc/sys/net/ipv4/conf/all/arp_announce
     ifconfig ${NETWORK_OUT_NAME}:${NETWORK_OUT_INDEX} $VIP netmask $MASK up
 }
@@ -33,9 +33,9 @@ stop(){
         echo "LVS client program already stop"
         exit 1
     fi
-    echo "0" > /proc/sys/net/ipv4/conf/${NETWORK_NAME}/arp_ignore
+    echo "0" > /proc/sys/net/ipv4/conf/$NETWORK_IN_NAME/arp_ignore
     echo "0" > /proc/sys/net/ipv4/conf/all/arp_ignore
-    echo "0" > /proc/sys/net/ipv4/conf/${NETWORK_NAME}/arp_announce
+    echo "0" > /proc/sys/net/ipv4/conf/$NETWORK_IN_NAME/arp_announce
     echo "0" > /proc/sys/net/ipv4/conf/all/arp_announce
     ifconfig ${NETWORK_OUT_NAME}:${NETWORK_OUT_INDEX} $VIP netmask $MASK down
 }
