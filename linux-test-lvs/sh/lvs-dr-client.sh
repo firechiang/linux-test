@@ -21,9 +21,9 @@ start(){
         echo "LVS client program  already start"
         exit 0
     fi
-    echo "1" > /proc/sys/net/ipv4/conf/$NETWORK_NAME/arp_ignore
+    echo "1" > /proc/sys/net/ipv4/conf/${NETWORK_NAME}/arp_ignore
     echo "1" > /proc/sys/net/ipv4/conf/all/arp_ignore
-    echo "2" > /proc/sys/net/ipv4/conf/$NETWORK_NAME/arp_announce
+    echo "2" > /proc/sys/net/ipv4/conf/${NETWORK_NAME}/arp_announce
     echo "2" > /proc/sys/net/ipv4/conf/all/arp_announce
     ifconfig ${NETWORK_OUT_NAME}:${NETWORK_OUT_INDEX} $VIP netmask $MASK up
 }
@@ -33,9 +33,9 @@ stop(){
         echo "LVS client program already stop"
         exit 1
     fi
-    echo "0" > /proc/sys/net/ipv4/conf/$NETWORK_NAME/arp_ignore
+    echo "0" > /proc/sys/net/ipv4/conf/${NETWORK_NAME}/arp_ignore
     echo "0" > /proc/sys/net/ipv4/conf/all/arp_ignore
-    echo "0" > /proc/sys/net/ipv4/conf/$NETWORK_NAME/arp_announce
+    echo "0" > /proc/sys/net/ipv4/conf/${NETWORK_NAME}/arp_announce
     echo "0" > /proc/sys/net/ipv4/conf/all/arp_announce
     ifconfig ${NETWORK_OUT_NAME}:${NETWORK_OUT_INDEX} $VIP netmask $MASK down
 }
