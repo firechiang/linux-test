@@ -1,4 +1,5 @@
 #!/bin/bash
+# lvs-dr-client服务必须在2，3，4，5运行级下被启动或关闭，启动的优先级是80，关闭的优先级是93
 #chkconfig: 2345 80 93
 #description: this script to start lvs client for the server
 #version: 1.0
