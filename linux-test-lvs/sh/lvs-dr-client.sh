@@ -8,7 +8,7 @@ VIP=192.168.83.100
 start(){
     ifconfig | grep $VIP >/dev/null 2>&1
     if [ $? -eq 0 ];then
-        action "LVS client program  already start"
+        echo "LVS client program  already start"
         exit 0
     fi
     # 注意：ens33是当前机器的网卡名称，注意修改，可以使用ifconfig命令查看。all是指所有网卡
@@ -23,7 +23,7 @@ start(){
 stop(){
     ifconfig | grep $VIP >/dev/null 2>&1
     if [ $? -gt 0 ];then
-        action "LVS client program already stop"
+        echo "LVS client program already stop"
         exit 1
     fi
     # 注意：ens33是当前机器的网卡名称，注意修改，可以使用ifconfig命令查看。all是指所有网卡
@@ -39,17 +39,17 @@ case $1 in
 start)
     start
     if [ $? -eq 0 ];then
-        action "LVS client program starting successful" /bin/true
+        echo "LVS client program starting successful" /bin/true
     else
-        action "LVS client program starting successful" /bin/false
+        echo "LVS client program starting successful" /bin/false
     fi
 ;;
 stop)
     stop
     if [ $? -eq 0 ];then
-        action "LVS client program stoping successful" /bin/true
+        echo "LVS client program stoping successful" /bin/true
     else
-        action "LVS client program stoping successful" /bin/false
+        echo "LVS client program stoping successful" /bin/false
     fi
 ;;
 status)
@@ -61,11 +61,11 @@ status)
     fi
 ;;
 restart)
-    stop && { action "LVS client program stoping successful" /bin/true ||
-          action "LVS client program stoping failed" /bin/false
+    stop && { echo "LVS client program stoping successful" /bin/true ||
+          echo "LVS client program stoping failed" /bin/false
         } 
-    start&& { action "LVS client program starting successful" /bin/true ||
-          action "LVS client program starting failed" /bin/false
+    start&& { echo "LVS client program starting successful" /bin/true ||
+          echo "LVS client program starting failed" /bin/false
         } 
 ;;
 *)
