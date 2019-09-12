@@ -1,4 +1,4 @@
-#### [LVS 搭建和使用][1]
+#### [LVS GR模式搭建和使用][1]
 
 #### LVS（Linux Virtual Server）组成部分
  - Ipvs 工作在内核空间，实现集群服务的调度；借鉴了iptables实现

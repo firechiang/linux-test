@@ -27,8 +27,8 @@ stop(){
     fi
     # 注意：ens33是当前机器的网卡名称，注意修改，可以使用ifconfig命令查看。all是指所有网卡
     echo "0" > /proc/sys/net/ipv4/conf/ens33/arp_ignore
-    echo "0" > /proc/sys/net/ipv4/conf/ens33/arp_announce
     echo "0" > /proc/sys/net/ipv4/conf/all/arp_ignore
+    echo "0" > /proc/sys/net/ipv4/conf/ens33/arp_announce
     echo "0" > /proc/sys/net/ipv4/conf/all/arp_announce
     # 清除数据包出栈的虚拟IP地址，lo表示出栈（可使用ifconfig命令查看），8这个值可以随便起，不要重复即可
     ifconfig lo:8 $VIP netmask 255.255.255.255 down
