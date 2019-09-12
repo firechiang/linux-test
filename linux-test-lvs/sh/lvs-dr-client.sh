@@ -2,7 +2,7 @@
 #description:this script to start lvs client for the server
 #version:1.0
 #setting variable
-# 虚拟IP注意修改
+# 虚拟IP注意修改，而且要和LVS服务器的虚拟IP相同
 VIP=192.168.83.100
 #functions
 start(){
@@ -17,6 +17,7 @@ start(){
     echo "2" > /proc/sys/net/ipv4/conf/ens33/arp_announce
     echo "2" > /proc/sys/net/ipv4/conf/all/arp_announce
     # 配置数据包出栈的虚拟IP地址，lo表示出栈（可使用ifconfig命令查看），8这个值可以随便起，不要重复即可
+    # 注意：数据出栈的虚拟IP的掩码 255.255.255.255 不能和LVS的虚拟IP的掩码相同，否则数据无法出栈，会形成一个死循环
     ifconfig lo:8 $VIP netmask 255.255.255.255 up
 }
 stop(){
