@@ -58,6 +58,41 @@ stop(){
     # 关闭IP数据包转发（0不开启，1开启。默认是0）
     echo "0" > /proc/sys/net/ipv4/ip_forward
 }
+# 监控后台证书服务器是否健康
+monitor_real_server(){
+    # LVS服务的虚拟IP是否正常绑定（只有虚拟IP正常绑定才执行监控逻辑）
+	if ifconfig | grep $VIP >/dev/null 2>&1; then
+	    # 循环遍历所有后台真实服务
+	    for((i=0;i<${#RIP[*]};i++))
+	    do
+	        # 后台服务健康
+	        if check_real_server ${RIP[$i]}; then
+	            # 如果该后台服务的转发规则不存在，将其添加到转发规则上
+	            if ! ipvsadm -ln | grep ${RIP[$i]}:${FORWARD_PORT} >/dev/null 2>&1; then
+	                ipvsadm -a -t ${VIP}:${BIN_PORT} -r ${RIP[$i]}:${FORWARD_PORT} -g -w 1
+	            fi
+	        # 后台服务不健康
+	        else
+	            # 如果该后台服务的转发规则还存在，将其删除（因为服务已经不健康了）
+	            if ipvsadm -ln | grep ${RIP[$i]}:${FORWARD_PORT} >/dev/null 2>&1; then
+	                ipvsadm -d -t ${VIP}:${BIN_PORT} -r ${RIP[$i]}:${FORWARD_PORT}
+	            fi
+	        fi
+	    done
+	fi
+}
+# 检查判断后台真实服务器是否健康（健康返回0，不健康返回1）
+check_real_server(){         
+    local I=1
+    # 重试三次（如果后台服务器出现异常重试3次，连接超时是3秒，数据传输超时是2秒）
+    while [ $I -le 3 ]; do
+    if curl --silent --connect-timeout 3 -m 2 http://$1:$FORWARD_PORT &> /dev/null; then
+        return 0
+    fi
+    let I++        
+    done
+    return 1
+}
 #loop setting
 case $1 in
 start)
@@ -91,6 +126,9 @@ restart)
     start&& { echo "LVS server program starting successful" /bin/true ||
           echo "LVS server program starting failed" /bin/false
         }
+;;
+monitor_real_server)
+    monitor_real_server
 ;;
 *)
     echo "Usage:$0 {start|stop|restart|status}"
