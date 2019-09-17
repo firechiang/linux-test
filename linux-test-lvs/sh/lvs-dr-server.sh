@@ -60,7 +60,7 @@ stop(){
 }
 # 监控后台真实服务器是否健康
 monitor_real_server(){
-        # LVS服务的虚拟IP是否正常绑定（只有虚拟IP正常绑定才执行监控逻辑）
+    # LVS服务的虚拟IP是否正常绑定（只有虚拟IP正常绑定才执行监控逻辑）
 	if ifconfig | grep $VIP >/dev/null 2>&1; then
 	    # 循环遍历所有后台真实服务
 	    for((i=0;i<${#RIP[*]};i++))
