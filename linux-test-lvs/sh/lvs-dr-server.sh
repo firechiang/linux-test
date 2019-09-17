@@ -58,9 +58,9 @@ stop(){
     # 关闭IP数据包转发（0不开启，1开启。默认是0）
     echo "0" > /proc/sys/net/ipv4/ip_forward
 }
-# 监控后台证书服务器是否健康
+# 监控后台真实服务器是否健康
 monitor_real_server(){
-    # LVS服务的虚拟IP是否正常绑定（只有虚拟IP正常绑定才执行监控逻辑）
+        # LVS服务的虚拟IP是否正常绑定（只有虚拟IP正常绑定才执行监控逻辑）
 	if ifconfig | grep $VIP >/dev/null 2>&1; then
 	    # 循环遍历所有后台真实服务
 	    for((i=0;i<${#RIP[*]};i++))
