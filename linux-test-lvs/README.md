@@ -1,5 +1,6 @@
 #### [LVS DR转发模型常规搭建和使用（推荐测试使用，且里面有各个参数说明）][1]
 #### [LVS DR转发模型脚本搭建和使用（推荐生产使用）][2]
+#### [LVS 加 Keepalived 高可用搭建和使用（推荐生产使用）][3]
 
 #### LVS（Linux Virtual Server）组成部分
  - Ipvs 工作在内核空间，实现集群服务的调度；借鉴了iptables实现
@@ -54,3 +55,4 @@ OSI七层网络模型         |  TCP/IP四层概念模型  |  对应的网络协
 
 [1]: https://github.com/firechiang/linux-test/tree/master/linux-test-lvs/docs/ipvsadm-use.md
 [2]: https://github.com/firechiang/linux-test/tree/master/linux-test-lvs/sh
+[3]: https://github.com/firechiang/linux-test/tree/master/linux-test-lvs/docs/keepalived-ipvsadm-use.md
