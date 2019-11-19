@@ -1,9 +1,9 @@
-#### 一、在LVS代理服务器上安装LVS管理工具Ipvsadm
+#### 一、LVS管理工具Ipvsadm（注意：所有的LVS代理服务器上都要安装）
 ```bash
 $ yum install ipvsadm
 ```
 
-#### 二、在LVS代理服务器上安装Keepalived
+#### 二、安装Keepalived（注意：任选一台LVS代理服务器上安装，再将安装包转发到其它服务器上即可）
 ```bash
 $ cd /home/tools
 $ sudo yum install gcc openssl-devel
@@ -15,7 +15,7 @@ $ sudo ./configure --prefix=/usr/local/keepalived && sudo make && sudo make inst
 $ scp -r /home/tools/keepalived-2.0.16/keepalived/etc/init.d /usr/local/keepalived/etc
 ```
 
-#### 三、修改Keepalived[vi /usr/local/keepalived/etc/init.d/keepalived]开机启动脚本
+#### 三、修改 [vi /usr/local/keepalived/etc/init.d/keepalived] Keepalived开机启动脚本
 ```bash
 # 将 /etc/sysconfig/keepalived 替换为如下内容（其实就是修改了 keepalived 系统配置文件所在目录）
 /usr/local/keepalived/etc/sysconfig/keepalived
@@ -27,7 +27,7 @@ $ cp /usr/local/keepalived/etc/keepalived/keepalived.conf /usr/local/keepalived/
 $ rm -f /usr/local/keepalived/etc/keepalived/keepalived.conf
 ```
 
-#### 五、修改[vi /usr/local/keepalived/etc/keepalived/keepalived.conf]配置文件
+#### 五、修改 [vi /usr/local/keepalived/etc/keepalived/keepalived.conf] 配置文件
 ```bash
 ! Configuration File for keepalived
 
@@ -49,10 +49,11 @@ vrrp_instance VI_1 {
     auth_pass 1111                                # 密码
   }
   # 虚拟IP要和真实IP的网段一致，可以指定多个（注意：主从节点需一致）
+  # /24就是指定掩码为255.255.255.0。如果是/32就是指定掩码为255.255.255.255
   virtual_ipaddress {
-    192.168.83.100
-    #192.168.229.17
-    #192.168.229.18
+    192.168.83.100/24
+    #192.168.229.17/24
+    #192.168.229.18/24
   }
 }
 
@@ -93,7 +94,7 @@ virtual_server 192.168.83.100 8080 {
 $ scp -r /usr/local/keepalived root@server007:/usr/local
 ```
 
-#### 七、修改[vi /usr/local/keepalived/etc/keepalived/keepalived.conf]从节点配置文件（注意：每个从节点都要配置）
+#### 七、修改 [vi /usr/local/keepalived/etc/keepalived/keepalived.conf] 从节点配置文件（注意：每个从节点都要配置）
 ```bash
 global_defs {
   router_id server007                               # 节点ID，通常为hostname（注意：主从节点不能一样）
@@ -107,14 +108,14 @@ vrrp_instance VI_1 {
 }
 ```
 
-#### 八、配置防火墙开启VRRP协议（注意：每个节点都要配置）
+#### 八、配置防火墙开启VRRP协议（注意：每个Keepalived节点都要配置）
 ```bash
 #$ sudo firewall-cmd --direct --permanent --add-rule ipv4 filter INPUT 0 --in-interface em1 --destination 192.168.229.132 --protocol vrrp -j ACCEPT
 $ sudo firewall-cmd --direct --permanent --add-rule ipv4 filter INPUT 0 --protocol vrrp -j ACCEPT
 $ firewall-cmd --reload                             # 加载防火墙配置
 ```
 
-#### 九、修改 keepalived 配置文件和日志文件所在目录（注意：每个节点都要配置）
+#### 九、修改 Keepalived 配置文件和日志文件所在目录（注意：每个Keepalived节点都要配置）
 ##### 9.1，修改[vi /usr/local/keepalived/etc/sysconfig/keepalived]
 ```bash
 # -f 指定配置文件目录，-S 15 表示 local9.* 具体的还需要看一下/etc/rsyslog.conf文件
@@ -126,7 +127,7 @@ KEEPALIVED_OPTIONS="-f /usr/local/keepalived/etc/keepalived/keepalived.conf -D -
 local9.*                                                /var/log/keepalived.log
 ```
 
-#### 十、拷贝开机启动脚本到init.d目录（注意：每个节点都要配置）
+#### 十、拷贝开机启动脚本到init.d目录（注意：每个Keepalived节点都要配置）
 ```bash
 $ chmod +x /usr/local/keepalived/etc/sysconfig/keepalived
 $ cp /usr/local/keepalived/etc/init.d/keepalived /etc/init.d/keepalived
