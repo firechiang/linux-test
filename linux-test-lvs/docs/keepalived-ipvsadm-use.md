@@ -61,7 +61,7 @@ vrrp_instance VI_1 {
 virtual_server 192.168.83.100 8080 {
     delay_loop 6
     lb_algo rr                                    # 轮询模式
-    lb_kind DR                                    # 转发模式
+    lb_kind DR                                    # DR转发模式（注意：这个模式需要在后端服务器上配置数据出栈IP（就是Keepalived的虚拟IP））
     #persistence_timeout 50                       # 记录client的请求信息到lvs的hash表里，信息的过期时间（过期时间内请求分发到同一台机器），单位秒（注意：这个一般不配置）
     protocol TCP
 
