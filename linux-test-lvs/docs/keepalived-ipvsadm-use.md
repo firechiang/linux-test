@@ -134,7 +134,37 @@ $ cp /usr/local/keepalived/etc/init.d/keepalived /etc/init.d/keepalived
 $ ln -s /usr/local/keepalived/sbin/keepalived /sbin/
 ```
 
-#### 十一、启动和停止 Keepalived
+#### 十一、为后台服务所在的服务器配置数据出栈IP（注意：每个后台服务所在的服务器都要配置）[使用脚本配置](https://github.com/firechiang/linux-test/blob/master/linux-test-lvs/sh/lvs-dr-client.sh)
+```bash
+# 配置请求响应级别，默认是 0 （0 只要本地配置有相应的地址，就给予响应。1 仅在请求的目标（MAC）地址，到达本机接口对应的地址上（因为可能有多个地址），才给予响应）
+# 注意：ens33是当前机器的网卡名称，可以使用ifconfig命令查看。all是指所有网卡
+$ echo 1 > /proc/sys/net/ipv4/conf/ens33/arp_ignore && \
+  echo 1 > /proc/sys/net/ipv4/conf/all/arp_ignore
+# 永久修改请求响应级别
+$ echo 'net.ipv4.conf.ens33.arp_ignore = 1' >> /etc/sysctl.conf && \
+  echo 'net.ipv4.conf.all.arp_ignore = 1' >> /etc/sysctl.conf
+
+# 配置自己的地址向外通告的级别，默认是0（注意：ens33是当前机器的网卡名称，可以使用ifconfig命令查看。all是指所有网卡）
+# 0 本地任何接口上的任何地址向外通告
+# 1 试图仅向目标网络通告与其网络匹配的地址
+# 2 仅向与本地接口上地址匹配的网络进行通告
+$ echo 2 > /proc/sys/net/ipv4/conf/ens33/arp_announce && \
+  echo 2 > /proc/sys/net/ipv4/conf/all/arp_announce
+# 永久修改自己的地址向外通告的级别
+$ echo 'net.ipv4.conf.ens33.arp_announce = 2' >> /etc/sysctl.conf && \
+  echo 'net.ipv4.conf.all.arp_announce = 2' >> /etc/sysctl.conf
+
+# 查看网卡和IP信息
+$ ifconfig
+
+# 配置数据包出栈的虚拟IP地址（就是Keepalived的虚拟IP），lo表示出栈（可使用ifconfig命令查看），8这个值可以随便起，不要重复即可
+# 注意1：这个虚拟IP一定要和LVS的虚拟IP相同，因为数据入栈的IP是LVS的虚拟IP，出栈也要是这个，否则客户端无法接受到数据
+# 注意2：数据出栈的虚拟IP的掩码 255.255.255.255 不能和LVS的虚拟IP的掩码相同，否则数据无法出栈，会形成一个死循环
+# 注意3：一定要执行完上面的命令之后才执行这个命令，因为这个命令执行完成以后，这条虚拟IP信息就会根据上面配置的级别广播出去
+$ ifconfig lo:8 192.168.83.100 netmask 255.255.255.255
+```
+
+#### 十二、启动和停止 Keepalived
 ```bash
 $ sudo chkconfig keepalived on                      # 开启 keepalived 开机启动
 $ sudo chkconfig keepalived off                     # 关闭 keepalived开机启动
@@ -146,7 +176,7 @@ $ service keepalived status                         # 查看状态
 $ ps -ef | grep keepalived                          # 查看 keepalived 进程信息
 ```
 
-#### 十二、在LVS代理服务器上查看是否有我们在Keepalived里面配置的LVS转发规则（注意：这些规则是Keepalived自动帮我们配的而且还有健康检查，如果后端服务宕机了，Keepalived会自动删除转发规则，如果健康了就会自动添加好规则）
+#### 十三、在LVS代理服务器上查看是否有我们在Keepalived里面配置的LVS转发规则（注意：这些规则是Keepalived自动帮我们配的而且还有健康检查，如果后端服务宕机了，Keepalived会自动删除转发规则，如果健康了就会自动添加好规则）
 ```bash
 $ ipvsadm -L -n
 # 以下为打印内容
