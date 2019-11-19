@@ -134,7 +134,7 @@ $ cp /usr/local/keepalived/etc/init.d/keepalived /etc/init.d/keepalived
 $ ln -s /usr/local/keepalived/sbin/keepalived /sbin/
 ```
 
-#### 十一、为后台服务所在的服务器配置数据出栈IP（注意：每个后台服务所在的服务器都要配置）[使用脚本配置](https://github.com/firechiang/linux-test/blob/master/linux-test-lvs/sh/lvs-dr-client.sh)
+#### 十一、如果是DR转发模式，则为后台服务所在的服务器配置数据出栈IP，[使用脚本配置](https://github.com/firechiang/linux-test/blob/master/linux-test-lvs/sh/lvs-dr-client.sh)。（注意：每个后台服务所在的服务器都要配置，如果是NAT转发模式以下命令则不需要执行）
 ```bash
 # 配置请求响应级别，默认是 0 （0 只要本地配置有相应的地址，就给予响应。1 仅在请求的目标（MAC）地址，到达本机接口对应的地址上（因为可能有多个地址），才给予响应）
 # 注意：ens33是当前机器的网卡名称，可以使用ifconfig命令查看。all是指所有网卡
