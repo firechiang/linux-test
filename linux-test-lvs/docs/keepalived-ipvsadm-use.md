@@ -128,6 +128,7 @@ local9.*                                                /var/log/keepalived.log
 
 #### 十、拷贝开机启动脚本到init.d目录（注意：每个节点都要配置）
 ```bash
+$ chmod +x /usr/local/keepalived/etc/sysconfig/keepalived
 $ cp /usr/local/keepalived/etc/init.d/keepalived /etc/init.d/keepalived
 $ ln -s /usr/local/keepalived/sbin/keepalived /sbin/
 ```
@@ -142,4 +143,16 @@ $ service keepalived stop                           # 停止
 $ service keepalived status                         # 查看状态
 
 $ ps -ef | grep keepalived                          # 查看 keepalived 进程信息
+```
+
+#### 十二、在LVS代理服务器上查看是否有我们在Keepalived里面配置的LVS转发规则（注意：这些规则是Keepalived自动帮我们配的而且还有健康检查，如果后端服务宕机了，Keepalived会自动删除转发规则，如果健康了就会自动添加好规则）
+```bash
+$ ipvsadm -L -n
+# 以下为打印内容
+IP Virtual Server version 1.2.1 (size=4096)
+Prot LocalAddress:Port Scheduler Flags
+  -> RemoteAddress:Port           Forward Weight ActiveConn InActConn
+TCP  192.168.83.100:8080 rr
+  -> 192.168.83.144:8080          Route   1      0          0         
+  -> 192.168.83.145:8080          Route   1      0          0
 ```
