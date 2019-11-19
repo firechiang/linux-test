@@ -1,4 +1,4 @@
-#### 一、LVS管理工具Ipvsadm（注意：所有的LVS代理服务器上都要安装）
+#### 一、安装LVS管理工具Ipvsadm（注意：所有的LVS代理服务器上都要安装）
 ```bash
 $ yum install ipvsadm
 ```
