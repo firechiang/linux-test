@@ -134,7 +134,7 @@ $ cp /usr/local/keepalived/etc/init.d/keepalived /etc/init.d/keepalived
 $ ln -s /usr/local/keepalived/sbin/keepalived /sbin/
 ```
 
-#### 十一、启动和停止 keepalived
+#### 十一、启动和停止 Keepalived
 ```bash
 $ sudo chkconfig keepalived on                      # 开启 keepalived 开机启动
 $ sudo chkconfig keepalived off                     # 关闭 keepalived开机启动
