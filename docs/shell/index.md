@@ -52,7 +52,7 @@ $ echo ${str: -3}                    # 截取字符串变量str，从右边开�
 $ expr substr $str 1 2               # 截取字符串变量str，从第1个位置开始，截到第2个位置（注意：字符串从1开始计算）
 ```
 
-#### 五、使用expr关键字，对变量的运算、比较，简单使用（注意：运算只能针对整型数值，不能精确到浮点数），[expr关键字的使用的测试脚本，里面包含整数的判断](https://github.com/firechiang/linux-test/tree/master/sh/sum_example.sh)
+#### 五、使用expr关键字，对变量的运算、比较，简单使用（注意：运算只能针对整型数值，不能精确到浮点数），[expr关键字使用的测试脚本，里面包含整数的判断以及for循环的使用](https://github.com/firechiang/linux-test/tree/master/sh/sum_example.sh)
 ```bash
 $ num1=1                             # 定义变量（注意：等号两边不能有空格）
 $ num2=2                             # 定义变量（注意：等号两边不能有空格）
