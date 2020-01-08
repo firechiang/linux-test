@@ -75,6 +75,19 @@ $ num4=$(($num1 * $num2))            # 将num1乘以num2的结果，赋予num4
 $ num5=$(($num7 == $num8))           # 将判断$num7是否等于$num8的结果赋予num5（注意：简写的方式，判断相等要用2个等号）
 ```
 
+#### 六、浮点数运算简单使用（注意：浮点数运算需要借助 bc 计算器），[bc浮点数运算的测试脚本](https://github.com/firechiang/linux-test/tree/master/sh/bc_example.sh)
+```bash
+$ yum install bc -y                  # 如果没有，安装 bc 计算器
+$ bc                                 # 进入 bc 计算器（如果有直接写 "计算表达式" 即可运算）
+$ 2 + 3                              # 计算2+3，敲回车即可运算
+$ scale=6                            # 设置小数点精度（注意：等号两边不要加空格） 
+$ 5 / 3                              # 计算5/3
+$ quit                               # 退出bc计算器
+
+$ echo "2+3" | bc                    # 将计算表达传给 bc 进行运算
+$ echo "scale=4;3/5" | bc            # 计算3/5（注意：scale 是指定小数点精度）
+```
+
 #### 其它、动态命令以及一些高级用法
 ```bash
 $ echo `hostname`

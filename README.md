@@ -56,6 +56,7 @@ $ timedatectl set-timezone Asia/Shanghai # 修改为中国上海时区（注意�
 #### 十二、其它命令用法
 ```bash
 $ echo $?                                # 查看上一条命令的执行结果（0 表示执行成功，1 表示执行异常）
+$ which java                             # 查找某个程序安装目录（这个命令找的是java的安装目录）
 ```
 
 [1]: https://github.com/firechiang/linux-test/tree/master/docs/ipv4-parameter-optimization.md
