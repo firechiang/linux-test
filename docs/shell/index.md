@@ -89,7 +89,7 @@ $ echo "scale=4;3/5" | bc            # 计算3/5（注意：scale 是指定小�
 ```
 
 #### 七、函数定义和简单使用
- - 函数使用return返回值，只能返回0-255的整数（建议使用返回0调用成功，1调用失败），[使用return返回值的简单测试脚本](https://github.com/firechiang/linux-test/tree/master/sh/function_example_2.sh)
+ - [函数使用return返回值，只能返回0-255的整数（建议使用返回0调用成功，1调用失败），使用return返回值的简单测试脚本](https://github.com/firechiang/linux-test/tree/master/sh/function_example_2.sh)
  - [函数的测试脚本，里面有获取当前脚本执行的子进程ID](https://github.com/firechiang/linux-test/tree/master/sh/function_example.sh)
  - [函数接收参数简单测试脚本，里面有swith case简单使用](https://github.com/firechiang/linux-test/tree/master/sh/function_example_1.sh)
 ```bash
