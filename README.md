@@ -53,6 +53,11 @@ $ ls -l /etc/localtime                   # 查看系统当前时区
 $ timedatectl set-timezone Asia/Shanghai # 修改为中国上海时区（注意：系统所支持的时区里面没有北京）
 ```
 
+#### 十二、其它命令用法
+```bash
+$ echo $?                                # 查看上一条命令的执行结果（0 表示执行成功，1 表示执行异常）
+```
+
 [1]: https://github.com/firechiang/linux-test/tree/master/docs/ipv4-parameter-optimization.md
 [2]: https://github.com/firechiang/linux-test/tree/master/docs/network-io-optimization.md
 [3]: https://github.com/firechiang/linux-test/tree/master/docs/numa-explain.md

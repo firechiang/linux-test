@@ -45,7 +45,7 @@ while true
 	    echo 
 	    # 执行函数
 	    print_tips
-	    
+	    # 将命令行输入的值，赋给choice变量
 	    read -p "请输入对应的数字（1|2|3|4|[q|Q]）：" choice
 	    
 	    case $choice in
