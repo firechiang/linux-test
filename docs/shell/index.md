@@ -67,7 +67,8 @@ $ expr $num1 \| $num2                # num1为空或是0，则返回num2，否�
 $ expr $num1 \& $num2                # num1不为空，且不为0，则返回num1，否则返回 0（注意： \（反斜杠） 表示转义）
 $ expr $num1 != $num2                # num1是否不等于num2（注意：如果比较为真直接返回 1，为假 返回 0但不会输出。 \（反斜杠） 表示转义）
 
-$ num3=`expr $num1 + $num2`          # 将num1与num2相加后，赋予num3变量 （注意：等号两边不能有空格）
+$ num3=`expr $num1 + $num2`          # 将num1与num2相加后，赋予num3变量 （注意：等号两边不能有空格，加号两边必须有空格）
+$ num3=$(($num1+$num2))              # 将num1与num2相加后，赋予num3变量
 
 # 以上命令的简写（注意：简写的不需要加  \（反斜杠））
 $ echo $(($num1 < $num2))            # expr关键字的简写（注意：简写的不需要加  \（反斜杠））
@@ -88,19 +89,27 @@ $ echo "2+3" | bc                    # 将计算表达传给 bc 进行运算
 $ echo "scale=4;3/5" | bc            # 计算3/5（注意：scale 是指定小数点精度）
 ```
 
-#### 七、函数定义和简单使用
+#### 七、函数定义和简单使用（注意：在函数里面定义变量建议使用local关键字修饰为局部变量）
  - [函数使用return返回值，只能返回0-255的整数（建议使用返回0调用成功，1调用失败），使用return返回值的简单测试脚本](https://github.com/firechiang/linux-test/tree/master/sh/function_example_2.sh)
+ - [函数返回String类型的数据，简单测试脚本，里面有for in的用法和获取函数返回值的用法](https://github.com/firechiang/linux-test/tree/master/sh/function_example_3.sh)
  - [函数的测试脚本，里面有获取当前脚本执行的子进程ID](https://github.com/firechiang/linux-test/tree/master/sh/function_example.sh)
  - [函数接收参数简单测试脚本，里面有swith case简单使用](https://github.com/firechiang/linux-test/tree/master/sh/function_example_1.sh)
+ - [函数库测试脚本（就是以依赖的方式供其它脚本调用，文件后缀名建议使用.lib，还有不要给执行权限）](https://github.com/firechiang/linux-test/tree/master/sh/base_function.lib)
+ - [调用函数库的测试脚本（就是调用外部脚本里面的函数）](https://github.com/firechiang/linux-test/tree/master/sh/function_example_4.sh)
+ - [打印系统运行参数的测试脚本（内存，磁盘 等信息）](https://github.com/firechiang/linux-test/tree/master/sh/function_example_5.sh)
 ```bash
 test_echo()
 {
+    # 定义局部变量（注意：没有加local的所有变量都是全局变量，全局变量：既使是在函数外面也是可以使用的）
+    local temp="test"
     # 可使用 $1,$2 的方式获取参数
     echo "第一种定义函数的方法"
 }
 
 function test_echo
 {
+    # 定义局部变量（注意：没有加local的所有变量都是全局变量，全局变量：既使是在函数外面也是可以使用的）
+    local temp="test"
     # 可使用 $1,$2 的方式获取参数
     echo "第二种定义函数的方法"
 }

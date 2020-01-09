@@ -1,0 +1,23 @@
+# 加法
+function add
+{
+    echo "`expr $1 + $2`"
+}
+
+# 减法
+function reduce
+{
+    echo "`expr $1 - $2`"
+}
+
+# 乘法
+function multiple
+{
+    echo "`expr $1 \* $2`"
+}
+
+# 除法
+function divide
+{
+    echo "`expr $1 / $2`"
+}

@@ -59,6 +59,9 @@ $ echo $?                                # 查看上一条命令的执行结果�
 $ which java                             # 查找某个程序安装目录（这个命令找的是java的安装目录）
 $ ps -ef | grep java | grep -v grep      # 查找某个进程是否存在（注意：这个命令也会启一个进程，同时也会被查出来。grep -v grep 就是过滤掉这个命令启动的进程）
 $ ps -ef | grep java | wc -l             # wc -l 表示统计命令执行结果的条数
+
+$ sh -x ./fn.sh                          # 执行脚本加 -x 参数，可以打印脚本的执行过程
+$ cat /etc/passwd | cut -d: -f1          # 获取所有用户（说明：先获取到/etc/passwd里面的所有数据，再通过:号进行行分割，再获取每一行分割后的第一个位置的数据）
 ```
 
 [1]: https://github.com/firechiang/linux-test/tree/master/docs/ipv4-parameter-optimization.md
