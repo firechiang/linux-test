@@ -53,7 +53,103 @@ $ ls -l /etc/localtime                   # 查看系统当前时区
 $ timedatectl set-timezone Asia/Shanghai # 修改为中国上海时区（注意：系统所支持的时区里面没有北京）
 ```
 
-#### 十二、其它命令用法
+#### 八、文件查找工具find简单使用
+```bash
+# -name                根据文件名查找
+# -iname               根据文件名查找（忽略大小写）
+# -perm                根据文件权限查找
+# -prune               过滤掉某些目录（注意：这个要配合-path使用）
+# -user                根据文件所属用户查找
+# -group               根据文件所属组查找
+
+# -nogroup             查找无有效属组的文件（一个组开始创建了很多文件，后来组被删除了，这些文件就是无有效属组的文件）
+# -nouser              查找无有效属主的文件（一个用户开始创建了很多文件，后来用户被删除了，这些文件就是无有效属主的文件）
+# -size                根据文件大小查找
+# -mindepth n          从第n级子目录开始搜索
+# -maxdepth n          最多查找到第n级目录
+
+# -type f              根据文件类型查找（f=文件）
+# -type d              根据文件类型查找（d=目录）
+# -type c              根据文件类型查找（c=字符设备文件）
+# -type b              根据文件类型查找（b=块设备文件）
+# -type l              根据文件类型查找（l=链接文件）
+# -type p              根据文件类型查找（p=管道文件）
+
+# -print               打印查找后的结果（注意：这个参数是默认的）
+# -exec                对查找后的结果进行其它命令操作
+
+$ find / -name nginx                  # 从根目录开始查找nginx文件
+$ find / -iname nginx                 # 从根目录开始查找nginx文件（忽略大小写）
+$ find ./ -user root                  # 查找当前目录属于root用户的所有文件
+$ find / -perm 776                    # 从根目录开始查找文件权限是777的文件
+
+$ find ./ -type f                     # 查找当前目录下所有普通文件
+$ find ./ -type d                     # 查找当前目录下所有文件夹
+
+$ find ./ -size +1M                   # 查找当前目录大于lM的文件
+$ find ./ -size -1M                   # 查找当前目录小于lM的文件
+$ find ./ -size 1k                    # 查找当前目录等于lk的文件（注意：不能精确匹配大于等于1M（兆）的文件）
+
+$ find -mtime -3                      # 查找3天之内修改过的所有文件
+$ find -mtime +3                      # 查找3天之前修改过的所有文件
+$ find -mtime 3                       # 查找修改天数等于3天的所有文件
+
+$ find -mmin -3                       # 查找3分钟之内修改过的所有文件
+$ find -mmin +3                       # 查找3分钟之前修改过的所有文件
+
+$ find -mtime -3 -name '*.bd'         # 查找3天之内修改过，以bd结尾的所有文件
+$ find -mtime +3 -user root           # 查找3天之前修改过，属于root的所有文件
+
+# -o   表示或
+# -a   表示与
+# -not 表示非
+# 从根目录开始查找*b文件，过滤掉/u目录下的所有文件和文件夹（-path /u -prune就是过滤/u目录，-o是并且的意思（就是后面的命令也会执行））
+$ find / -path /u -prune -o -name *b  
+
+# 从根目录开始查找*db文件，过滤掉/var和/usr目录下的所有文件和文件夹
+$ find / -path /var -prune -o -path /usr -prune -o -name *db
+
+# 查找当前目录比function_example_5.sh文件要新的文件
+$ find ./ -newer function_example_5.sh
+
+# -exec 查询结果后再执行其它操作
+# -ok   查询结果后再执行其它操作（注意：这个在执行其它操作会有提示）
+# 将查找到的文件再进行其它操作（这里是删除）{} 表示查找后的结果，\; 表示命令的结尾
+$ find / -name test.db -exec rm -rf {} \;
+
+# 将查找到的文件再进行其它操作（这里是复制）{} 表示查找后的结果，\; 表示命令的结尾
+$ find ./test_fold -name '*.sh' -exec cp {} ./test_fold1 \;
+```
+
+#### 十二、文件查找工具locate命令简单使用，locate命令不是搜索整个磁盘而是搜索locate自带的数据库，数据库的信息会定时更新（注意：如果没有该命令请安装：yum install mlocate）（注意：不推荐使用）
+ - locate自带的数据库信息文件：/var/lib/mlocate/mlocate.db
+ - locate自带的数据库配置文件：/etc/updatedb.conf
+ - locate命令在cron有定时任务定期执行
+```bash
+$ updatedb                                 # 更新locate自带的数据信息
+$ touch /home/test.db                      # 创建一个测试文件
+$ locate test.db                           # 使用locate命令查找test.db文件所在目录（注意：应该是查不到的，因为locate数据库没有更新）
+$ updatedb                                 # 更新locate数据库
+$ locate test.db                           # 再查找test.db文件，应该就有了
+```
+
+#### 十三、程序查找工具whereis命令简单使用
+```bash
+# -b 查找二进制文件
+# -m 只返回帮助文档文件
+# -s 只反回源代码文件
+$ whereis mysql                       # 查找mysql程序所在文件目录 
+$ whereis -b mysql                    # 查找mysql程序所在文件目录           
+```
+
+#### 十四、可执行程序查找工具which命令简单使用
+```bash
+# -b 只返回二进制文件
+$ which mysql                         # 查找mysql可执行文件所在目录    
+$ which -b mysql                      # 查找mysql可执行文件所在目录         
+```
+
+#### 十五、其它命令用法
 ```bash
 $ echo $?                                # 查看上一条命令的执行结果（0 表示执行成功，1 表示执行异常）
 $ which java                             # 查找某个程序安装目录（这个命令找的是java的安装目录）
@@ -62,6 +158,7 @@ $ ps -ef | grep java | wc -l             # wc -l 表示统计命令执行结果�
 
 $ sh -x ./fn.sh                          # 执行脚本加 -x 参数，可以打印脚本的执行过程
 $ cat /etc/passwd | cut -d: -f1          # 获取所有用户（说明：先获取到/etc/passwd里面的所有数据，再通过:号进行行分割，再获取每一行分割后的第一个位置的数据）
+$ dd if=./ of=test.db bs=512k count=2    # 在当前目录生成一个test.db文件，大小是1M（大小=bs * count）
 ```
 
 [1]: https://github.com/firechiang/linux-test/tree/master/docs/ipv4-parameter-optimization.md
