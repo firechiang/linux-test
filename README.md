@@ -20,26 +20,26 @@ Be careful before using the write command.
 Device does not contain a recognized partition table
 Building a new DOS disklabel with disk identifier 0x700dc500.
 
-Command (m for help): n               # 创建新的分区（n=创建新的分区，d=删除分区，p=列出分区列表，w=保存分区信息并退出，q=退出而不保存）
+Command (m for help): n                  # 创建新的分区（n=创建新的分区，d=删除分区，p=列出分区列表，w=保存分区信息并退出，q=退出而不保存）
 Partition type:
    p   primary (0 primary, 0 extended, 4 free)
    e   extended
-Select (default p): p                 #（p=创建主分区，e=创建扩展分区）
-Partition number (1-4, default 1): 1  # 当前磁盘的分区号（一块磁盘最多4个分区，所以最大是4，详情请看上面的注意事项）
+Select (default p): p                    #（p=创建主分区，e=创建扩展分区）
+Partition number (1-4, default 1): 1     # 当前磁盘的分区号（一块磁盘最多4个分区，所以最大是4，详情请看上面的注意事项）
 First sector (2048-20971519, default 2048): 
-Using default value 2048              # 分区容量从磁盘容量的哪个位置开始
+Using default value 2048                 # 分区容量从磁盘容量的哪个位置开始
 Last sector, +sectors or +size{K,M,G} (2048-20971519, default 20971519): 
-Using default value 20971519          # 分区容量到磁盘容量的哪个位置结束
+Using default value 20971519             # 分区容量到磁盘容量的哪个位置结束
 Partition 1 of type Linux and of size 10 GiB is set
 
-Command (m for help): w               # 保存分区信息并退出（n=创建新的分区，d=删除分区，p=列出分区列表，w=保存分区信息并退出，q=退出而不保存）
+Command (m for help): w                  # 保存分区信息并退出（n=创建新的分区，d=删除分区，p=列出分区列表，w=保存分区信息并退出，q=退出而不保存）
 The partition table has been altered!
 
 Calling ioctl() to re-read partition table.
 Syncing disks.
 
-$ fdisk -l                            # 查看机器硬盘信息，找到新添加的硬盘和分区名称
-$ mkfs -t ext4 /dev/sdb1              # 格式化新建分区（将新建分区/dev/sdb1格式化成ext4格式）
+$ fdisk -l                               # 查看机器硬盘信息，找到新添加的硬盘和分区名称
+$ mkfs -t ext4 /dev/sdb1                 # 格式化新建分区（将新建分区/dev/sdb1格式化成ext4格式）
 
 # 修改/etc/fstab文件，将磁盘分区/dev/sdb1，永久的挂载到/mnt/test_data目录，磁盘格式是ext4
 # 注意：要重启机器才能生效（命令：reboot）
@@ -78,27 +78,27 @@ $ timedatectl set-timezone Asia/Shanghai # 修改为中国上海时区（注意�
 # -print               打印查找后的结果（注意：这个参数是默认的）
 # -exec                对查找后的结果进行其它命令操作
 
-$ find / -name nginx                  # 从根目录开始查找nginx文件
-$ find / -iname nginx                 # 从根目录开始查找nginx文件（忽略大小写）
-$ find ./ -user root                  # 查找当前目录属于root用户的所有文件
-$ find / -perm 776                    # 从根目录开始查找文件权限是777的文件
+$ find / -name nginx                     # 从根目录开始查找nginx文件
+$ find / -iname nginx                    # 从根目录开始查找nginx文件（忽略大小写）
+$ find ./ -user root                     # 查找当前目录属于root用户的所有文件
+$ find / -perm 776                       # 从根目录开始查找文件权限是777的文件
 
-$ find ./ -type f                     # 查找当前目录下所有普通文件
-$ find ./ -type d                     # 查找当前目录下所有文件夹
+$ find ./ -type f                        # 查找当前目录下所有普通文件
+$ find ./ -type d                        # 查找当前目录下所有文件夹
 
-$ find ./ -size +1M                   # 查找当前目录大于lM的文件
-$ find ./ -size -1M                   # 查找当前目录小于lM的文件
-$ find ./ -size 1k                    # 查找当前目录等于lk的文件（注意：不能精确匹配大于等于1M（兆）的文件）
+$ find ./ -size +1M                      # 查找当前目录大于lM的文件
+$ find ./ -size -1M                      # 查找当前目录小于lM的文件
+$ find ./ -size 1k                       # 查找当前目录等于lk的文件（注意：不能精确匹配大于等于1M（兆）的文件）
 
-$ find -mtime -3                      # 查找3天之内修改过的所有文件
-$ find -mtime +3                      # 查找3天之前修改过的所有文件
-$ find -mtime 3                       # 查找修改天数等于3天的所有文件
+$ find -mtime -3                         # 查找3天之内修改过的所有文件
+$ find -mtime +3                         # 查找3天之前修改过的所有文件
+$ find -mtime 3                          # 查找修改天数等于3天的所有文件
 
-$ find -mmin -3                       # 查找3分钟之内修改过的所有文件
-$ find -mmin +3                       # 查找3分钟之前修改过的所有文件
+$ find -mmin -3                          # 查找3分钟之内修改过的所有文件
+$ find -mmin +3                          # 查找3分钟之前修改过的所有文件
 
-$ find -mtime -3 -name '*.bd'         # 查找3天之内修改过，以bd结尾的所有文件
-$ find -mtime +3 -user root           # 查找3天之前修改过，属于root的所有文件
+$ find -mtime -3 -name '*.bd'            # 查找3天之内修改过，以bd结尾的所有文件
+$ find -mtime +3 -user root              # 查找3天之前修改过，属于root的所有文件
 
 # -o   表示或
 # -a   表示与
@@ -126,11 +126,11 @@ $ find ./test_fold -name '*.sh' -exec cp {} ./test_fold1 \;
  - locate自带的数据库配置文件：/etc/updatedb.conf
  - locate命令在cron有定时任务定期执行
 ```bash
-$ updatedb                                 # 更新locate自带的数据信息
-$ touch /home/test.db                      # 创建一个测试文件
-$ locate test.db                           # 使用locate命令查找test.db文件所在目录（注意：应该是查不到的，因为locate数据库没有更新）
-$ updatedb                                 # 更新locate数据库
-$ locate test.db                           # 再查找test.db文件，应该就有了
+$ updatedb                               # 更新locate自带的数据信息
+$ touch /home/test.db                    # 创建一个测试文件
+$ locate test.db                         # 使用locate命令查找test.db文件所在目录（注意：应该是查不到的，因为locate数据库没有更新）
+$ updatedb                               # 更新locate数据库
+$ locate test.db                         # 再查找test.db文件，应该就有了
 ```
 
 #### 十四、程序查找工具whereis命令简单使用
