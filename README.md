@@ -53,7 +53,7 @@ $ ls -l /etc/localtime                   # 查看系统当前时区
 $ timedatectl set-timezone Asia/Shanghai # 修改为中国上海时区（注意：系统所支持的时区里面没有北京）
 ```
 
-#### 八、文件查找工具find简单使用
+#### 十二、文件查找工具find简单使用
 ```bash
 # -name                根据文件名查找
 # -iname               根据文件名查找（忽略大小写）
@@ -121,7 +121,7 @@ $ find / -name test.db -exec rm -rf {} \;
 $ find ./test_fold -name '*.sh' -exec cp {} ./test_fold1 \;
 ```
 
-#### 十二、文件查找工具locate命令简单使用，locate命令不是搜索整个磁盘而是搜索locate自带的数据库，数据库的信息会定时更新（注意：如果没有该命令请安装：yum install mlocate）（注意：不推荐使用）
+#### 十三、文件查找工具locate命令简单使用，locate命令不是搜索整个磁盘而是搜索locate自带的数据库，数据库的信息会定时更新（注意：如果没有该命令请安装：yum install mlocate）（注意：不推荐使用）
  - locate自带的数据库信息文件：/var/lib/mlocate/mlocate.db
  - locate自带的数据库配置文件：/etc/updatedb.conf
  - locate命令在cron有定时任务定期执行
@@ -133,23 +133,23 @@ $ updatedb                                 # 更新locate数据库
 $ locate test.db                           # 再查找test.db文件，应该就有了
 ```
 
-#### 十三、程序查找工具whereis命令简单使用
+#### 十四、程序查找工具whereis命令简单使用
 ```bash
 # -b 查找二进制文件
 # -m 只返回帮助文档文件
 # -s 只反回源代码文件
-$ whereis mysql                       # 查找mysql程序所在文件目录 
-$ whereis -b mysql                    # 查找mysql程序所在文件目录           
+$ whereis mysql                          # 查找mysql程序所在文件目录 
+$ whereis -b mysql                       # 查找mysql程序所在文件目录           
 ```
 
-#### 十四、可执行程序查找工具which命令简单使用
+#### 十五、可执行程序查找工具which命令简单使用
 ```bash
 # -b 只返回二进制文件
-$ which mysql                         # 查找mysql可执行文件所在目录    
-$ which -b mysql                      # 查找mysql可执行文件所在目录         
+$ which mysql                            # 查找mysql可执行文件所在目录    
+$ which -b mysql                         # 查找mysql可执行文件所在目录         
 ```
 
-#### 十五、其它命令用法
+#### 十六、其它命令用法
 ```bash
 $ echo $?                                # 查看上一条命令的执行结果（0 表示执行成功，1 表示执行异常）
 $ which java                             # 查找某个程序安装目录（这个命令找的是java的安装目录）
