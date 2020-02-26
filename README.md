@@ -189,6 +189,7 @@ $ netstat -ntlp | grep 25                # 查询netstat -ntlp命令结果数据
 # 10,+5command                           # 匹配从第10行开始，到16行结束
 # /pattern1/command                      # 匹配到pattern1的行
 # /pattern1/,/pattern2/command           # 匹配到pattern1开始，pattern2结束
+# /pattern1/,$command                    # 匹配到pattern1开始，最后一行结束（注意：$ 表示最后一行）
 # 10/pattern1/command                    # 匹配从第10行开始，到pattern1结束       
 # /pattern1/10command                    # 匹配从pattern1开始，到第10行结束      
 
