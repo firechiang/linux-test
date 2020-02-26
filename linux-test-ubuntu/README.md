@@ -110,6 +110,7 @@ $ :wq!                          # 强制保存退出<用于只读文件的修改
 $ :w                            # 保存编辑文件 但不退出
 $ :q                            # 退出编辑 如果没保存  提示  No write since last change （use ! to overrides）
 $ :q!                           # 放弃修改退出
+$ :set nu                       # 显示行号
 ```
 
 ##### netstat网络资源占用相关命令
