@@ -111,6 +111,7 @@ $ :w                            # 保存编辑文件 但不退出
 $ :q                            # 退出编辑 如果没保存  提示  No write since last change （use ! to overrides）
 $ :q!                           # 放弃修改退出
 $ :set nu                       # 显示行号
+$ :.,$d                         # 删除从当前行到最后一行的所有数据（光标停留的位置为当前行）
 ```
 
 ##### netstat网络资源占用相关命令
