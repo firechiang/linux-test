@@ -172,7 +172,7 @@ $ netstat -ntlp | grep 25                # 查询netstat -ntlp命令结果数据
 ```
 
 #### 十七、sed 文件流编辑器简单使用（修改删除文件里面的数据）（注意：sed命令处理是以文件里面的行为单位的，它是一行一行匹配处理的）
- - [sed 文件流编辑器的测试脚本，统计和过滤文件里面的段落](https://github.com/firechiang/linux-test/tree/master/sh/sed-test.sh)
+ - [sed 文件流编辑器的测试脚本，统计和过滤文件里面的段落（里面有删除注释行和空行）](https://github.com/firechiang/linux-test/tree/master/sh/sed-test.sh)
 ```bash
 # 使用方法一：sed [option] "pattern command" file
 # 使用方法二：命令 | sed [option] "pattern command"
