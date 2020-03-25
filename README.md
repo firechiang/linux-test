@@ -223,14 +223,26 @@ $ sed -n 's/kommo/qqq/g' aaa             # 将文件aaa里面的kommo修改为qq
 $ sed -n 's/kommo/qqq/g;p' aaa           # 将文件aaa里面的kommo修改为qqq，不会修改原文件（注意：s 表示修改，g 表示修改所有，p表示打印修改后的结果；这样不会修改源文件，但是会将修改后的信息输出出来）
 $ sed -i 's/kommo/qqq/' aaa              # 修改文件aaa里面的kommo修改为qqq，直接修改原文件（注意：只会修改每一行的第一个，s 表示修改；这个是直接将文件里面的内容改了）
 $ sed -i 's/kommo/qqq/g' aaa             # 修改文件aaa里面的kommo修改为qqq，直接修改原文件（注意：s 表示修改，g 表示修改所有；这个是直接将文件里面的内容改了）
+
+$ sed -i '5,10s/kommo/qqq/g' aaa         # 修改aaa文件里面的5-10行，将kommo修改为qqq，直接修改原文件（注意：s 表示修改，g 表示修改所有；这个是直接将文件里面的内容改了）
+$ sed -i '/^root/,10s/kommo/qqq/g' aaa   # 修改aaa文件里面从root开头的行到第10行，将kommo修改为qqq，直接修改原文件（注意：s 表示修改，g 表示修改所有；这个是直接将文件里面的内容改了）
+$ sed -i '/dsfsdfds/s/fds/qqq/g' aaa     # 修改aaa文件里面匹配到dsfsdfds的所有行，将fds修改为qqq，直接修改原文件（注意：s 表示修改，g 表示修改所有；这个是直接将文件里面的内容改了）
+$ sed -i '/sdfs/,/qqqssd/s/ssd/AAA/g' aaa# 修改aaa文件里面匹配sdfs到qqqssd的所有行，将ssd修改为AAA，直接修改原文件（注意：s 表示修改，g 表示修改所有；这个是直接将文件里面的内容改了）
+
 $ sed -i "s/${AAA}/S/g" aaa              # 修改aaa文件，将AAA变量的值修改为S（注意：使用变量建议将整个表达式使用双引号包起来）
 $ sed -i 's/${AAA}/'$AAA'/g' aaa         # 修改aaa文件，将${AAA}修改为AAA变量的值（注意：使用变量可以将获取变量的部分用单引号包起来）
 
 $ sed -i '/444\/444\/44/a DD' aa         # 修改文件aa，在文件里面找到444/444/44所在行（\ 表示转义），在它下面新建一行，数据为DD（注意：是所有匹配行都会加）
 $ sed -i '/444444444444/a DD' aa         # 修改文件aa，在文件里面找到444444444444所在行，在它下面新建一行，数据为DD（注意：是所有匹配行都会加）
 $ sed -i '/444444444444/i DD' aa         # 修改文件aa，在文件里面找到444444444444所在行，在它上面新建一行，数据为DD（注意：是所有匹配行都会加）
+
 $ sed -i '/DD/r add.txt' aa              # 修改文件aa，在文件里面找到DD所在行，在它下面新建一行，将add.txt文件里面的数据加进去（注意：是所有匹配行都会加）
+$ sed -i '20r add.txt' aa                # 修改文件aa，在文件的第20行下面新建一行，将add.txt文件里面的数据加进去
+$ sed -i '/^root/,20r add.txt' aa        # 修改文件aa，从root开头的行开始到第20行，每一行下面新建一行，将add.txt文件里面的数据加进去
+$ sed -i '/^root/,/jiang$/r add.txt' aa  # 修改文件aa，从root开头的行开始到以jiang的行结束，每一行下面新建一行，将add.txt文件里面的数据加进去
+
 $ sed -i '/DD/w /home/grep/add1.txt' aa  # 将aa文件里面包含DD的行数据，保存到/home/grep/add1.txt文件中
+$ sed -i '/^root/,/ji$/w /h/g/a1.txt' aa # 将aa文件从root开始的行到ji结尾的行行数据，保存到/h/g/a1.txt文件中
 
 $ sed -n '1d' aa                         # 删除aa文件里面的第1行数据（注意：这个不会修改文件）
 $ sed -n '1d;p' aa                       # 删除aa文件里面的第1行数据，并打印修改后的数据（注意：这个不会修改文件）
