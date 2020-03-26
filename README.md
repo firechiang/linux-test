@@ -272,10 +272,12 @@ $ sed -i 's/ma...\(QQ\)/\1AA/g' aa
 $ awk 'BEGIN {commands1} pattern {commands2} END {commands3}' file_name
 ```
  - awk 的内置变量
+```bash
 表头  | 表头  | 表头
 ---- | ----- | ------ 
 单元格内容  | 单元格内容 | 单元格内容
 单元格内容  | 单元格内容 | 单元格内容
+```
 
 #### 十九、其它命令用法
 ```bash
