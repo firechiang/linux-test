@@ -356,7 +356,67 @@ $ awk 'BEGIN {FS=",";RS="|"} {print $0}' a
 # 注意：FS=输入字符串分隔符，RS=输入行分隔符，ORS=输出行分隔符，OFS=输出字符串分隔符（就是$1和$2的分隔符））
 $ awk 'BEGIN {FS=",";RS="|";ORS="\n";OFS="-"} {print $1,$2}' a
 
+# 打印aaa文件里面，查找到包含 root 的每一行
+$ awk '/root/ {print $0}' aaa
+# 打印aaa文件里面，查找到以 df 开头的每一行
+$ awk '/^df/ {print $0}' aaa
 
+# 打印aaa文件里面，查找到以逗号分割后的第3个字段的值大于50的每一行
+$ awk 'BEGIN {FS=","} $3 > 50 {print $0}' aaa
+# 打印aaa文件里面，查找到以逗号分割后的第3个字段的值等于51的每一行
+$ awk 'BEGIN {FS=","} $3 == 51 {print $0}' aaa
+# 打印aaa文件里面，查找到以逗号分割后的第3个字段的值大于等于51的每一行
+$ awk 'BEGIN {FS=","} $3 >= 51 {print $0}' aaa
+# 打印aaa文件里面，查找到以逗号分割后的第3个字段的值不等于51的每一行
+$ awk 'BEGIN {FS=","} $3 != 51 {print $0}' aaa
+# 打印aaa文件里面，查找到以逗号分割后的第2个字段的值等于dfd的每一行
+$ awk 'BEGIN {FS=","} $2 == "dfd" {print $0}' aaa
+
+# 打印aaa文件里面，查找到以逗号分割后的第2个字段的值等于dfd并且第3个字段的值大于等于51的每一行
+$ awk 'BEGIN {FS=","} $2 == "dfd" && $3 >= 51 {print $0}' aaa
+# 打印aaa文件里面，查找到以逗号分割后的第2个字段的值等于dfd或者第3个字段的值大于等于51的每一行
+$ awk 'BEGIN {FS=","} $2 == "dfd" || $3 >= 51 {print $0}' aaa
+# 打印aaa文件里面，查找到以逗号分割后的第2个字段的值不等于dfd的每一行（注意：! 是取反）
+$ awk 'BEGIN {FS=","} !($2 == "dfd") {print $0}' aaa
+
+# 打印aaa文件里面，查找到以逗号分割后的第3个字段的值是0-9且出现次数大于等于2的每一行
+# 注意：~ 后跟着的是正则表达式（用这个正则表达式去匹配前面的值）
+$ awk 'BEGIN {FS=","} $3~/[0-9]{2,}/ {print $0}' aaa 
+# 打印aaa文件里面，查找到以逗号分割后的第3个字段的值不是（0-9且出现次数大于等于2）的每一行
+# 注意：!~ 是取反的意思（就是要不能匹配到正则表达式的数据）
+$ awk 'BEGIN {FS=","} $3!~/[0-9]{2,}/ {print $0}' aaa 
+# 打印aaa文件里面，查找到以逗号分割后的第3个字段的值是0-9且出现次数大于等于2或者第3个字段的值是dfd的每一行
+$ awk 'BEGIN {FS=","} $3~/[0-9]{2,}/ || $2 == "dfd" {print $0}' aaa 
+
+# 直接打印自己定义的变量
+$ awk 'BEGIN {var1=20;var2="ssdfds";print var1,var2}'
+# 直接打印var1,var2,var3的值（注意：如果var1没有定义，则默认就是0）
+$ awk 'BEGIN {var1=20;var2=10;var3=var1+var2;print var1,var2,var3}'
+# 直接打印var1,var2的值（注意：如果var1没有定义，则默认就是0）
+$ awk 'BEGIN {var1=20;var2=var1+1;print var1,var2}'
+# 直接打印var1,var2的值（注意：var1会等于21，var2等于20。原因：先赋值再加加（和java里面的一样））
+$ awk 'BEGIN {var1=20;var2=var1++;print var1,var2}'
+# 直接打印var1,var2的值（注意：var1和var2都是等于21。原因：先加加再赋值（和java里面的一样））
+$ awk 'BEGIN {var1=20;var2=++var1;print var1,var2}'
+# 直接打印var1,var2的值（注意：var1会等于19，var2等于20。原因：先赋值再减减（和java里面的一样））
+$ awk 'BEGIN {var1=20;var2=var1--;print var1,var2}'
+# 直接打印 var1除以var2，保留2位小数，之后换行
+$ awk 'BEGIN {var1=20;var2=10;printf "%0.2f\n",var1 / var2}'
+# 直接打印 var1乘以var2，保留2位小数，之后换行
+$ awk 'BEGIN {var1=20;var2=10;printf "%0.2f\n",var1 * var2}'
+# 直接打印 var1的var2次方（10和个20相乘），保留2位小数，之后换行
+$ awk 'BEGIN {var1=20;var2=10;printf "%0.2f\n",var1 ** var2}'
+# 直接打印 var1的var2次方（10和个20相乘），保留2位小数，之后换行
+$ awk 'BEGIN {var1=20;var2=10;printf "%0.2f\n",var1 ^ var2}'
+
+# 统计aaa文件里面包含33的行数（统计开始count=0，每匹配到一行count就是加加，最后打印count）
+$ awk 'BEGIN {count=0} /33/ {count++} END {print count}' aaa
+# 统计aaa文件里面以逗号分割后，后3个字段的平均值，最后保留4个小数打印出来
+$ awk 'BEGIN {FS=","} {total=$2+$3+$4;avg=total/4;printf "%0.4f\n",avg}' aaa
+# 统计aaa文件里面以逗号分割后，后3个字段的平均值，最后将3个字段和保留4个小数的平均值打印出来
+$ awk 'BEGIN {FS=","} {total=$2+$3+$4;avg=total/4;printf "%d,%d,%d,平均值: %0.4f\n",$2,$3,$4,avg}' aaa
+# 统计aaa文件里面以逗号分割后，后3个字段的平均值，最后将3个字段和保留4个小数的平均值打印出来
+$ awk 'BEGIN {FS=",";printf "%s,%s,%s,%s\n","语文","数学","英语","平均分"} {total=$2+$3+$4;avg=total/4;printf "%d,%d,%d,%0.4f\n",$2,$3,$4,avg}' aaa
 ```
 
 #### 十九、其它命令用法
