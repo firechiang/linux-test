@@ -117,6 +117,10 @@ function test_echo
 $ test_echo "参数1" "参数2"           # 调用函数
 ```
 
+#### 八、[sed 文件流编辑器简单使用（修改删除文件里面的数据）（注意：sed命令处理是以文件里面的行为单位的，它是一行一行匹配处理的）](https://github.com/firechiang/linux-test/tree/master/docs/sed-simple-use.md)
+
+#### 九、[awk 文本处理工具以及报告生成器简单使用](https://github.com/firechiang/linux-test/tree/master/docs/awk-simple-use.md)
+
 #### 其它、动态命令以及一些高级用法
 ```bash
 $ echo `hostname`
