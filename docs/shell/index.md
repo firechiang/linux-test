@@ -117,9 +117,31 @@ function test_echo
 $ test_echo "参数1" "参数2"           # 调用函数
 ```
 
-#### 八、[sed 文件流编辑器简单使用（修改删除文件里面的数据）（注意：sed命令处理是以文件里面的行为单位的，它是一行一行匹配处理的）](https://github.com/firechiang/linux-test/tree/master/docs/sed-simple-use.md)
+#### 八、grep 和 egrep 过滤器简单使用
+```bash
+# 使用方法一：grep [option] [pattern] [file1,file2,..]
+# 使用方法二：命令 | grep [option] [pattern] 
+# option 包含以下值（注意：option 为可选参数）
+# -v 不显示匹配行的信息（就是不高亮显示匹配信息）
+# -i 搜索时忽略大小写
+# -n 显示行号
+# -r 递归搜索（当前目录下搜索所有文件）
+# -E 支持扩展正则表达式
+# -F 不按正则表达式匹配，按照字符串字面意思匹配
+# -c 只显示匹配行的数量，不显示具体信息
+# -w 匹配整词
+# -x 匹配整行
+# -l 只显示匹配的文件名，不显示具体匹配行的内容
+$ grep -n 90 aaa                         # 查找 aaa 文件里面包含 90 的数据，并显示数据所在行号
+$ grep -E "a | A" aaa                    # 查找 aaa 文件里面包含 a 或  A 的数据（因为 a | A 是扩展正则表达式，所以加了-E参数，也可以直接使用egrep）
+$ grep -F "a.*" aaa                      # 查找 aaa 文件里面包含 a.* 的数据（因为 a.* 是正则表达式，但是我们要以字面意思匹配，所以加了-F 参数）
+$ grep -r 90                             # 在当前目录下搜索所有文件，查找里面包含90的数据（注意：这个搜索结果里面会显示文件名）
+$ netstat -ntlp | grep 25                # 查询netstat -ntlp命令结果数据包含25的数据
+```
 
-#### 九、[awk 文本处理工具以及报告生成器简单使用](https://github.com/firechiang/linux-test/tree/master/docs/awk-simple-use.md)
+#### 九、[sed 文件流编辑器简单使用（修改删除文件里面的数据）](https://github.com/firechiang/linux-test/tree/master/docs/sed-simple-use.md)
+
+#### 十、[awk 文本处理工具以及报告生成器简单使用](https://github.com/firechiang/linux-test/tree/master/docs/awk-simple-use.md)
 
 #### 其它、动态命令以及一些高级用法
 ```bash
