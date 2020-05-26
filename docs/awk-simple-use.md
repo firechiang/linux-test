@@ -308,7 +308,7 @@ index(str1,str2)     |  在str1中找str2的位置
 tolower(str)         |  转为小写
 toupper(str)         |  转大写
 substr(str,m,n)      |  从str的m个字符开始截取n位
-split(str,arr,fs)    |  按fs切割字符串，结果保存到arr数组里面，返回切割后子串的个数
+split(str,arr,fs)    |  按fs切割字符串，结果保存到arr数组里面，返回切割后子串的个数（默认使用空格分割）
 match(str,RE)        |  在str中按照RE查找，返回位置（注意：RE是正则表达式）
 sub(RE,RepStr,str)   |  在str中搜索符合RE的子串，将其替换为RepStr（替换一个）（注意：RE是正则表达式），最后返回替换的个数
 gsub(RE,RepStr,str)  |  在str中搜索符合RE的子串，将其替换为RepStr（替换所有）（注意：RE是正则表达式），最后返回替换的个数
@@ -349,5 +349,12 @@ BEGIN{
 }
 EOF
 
+# 执行脚本
 $ awk -f str_fn.awk str_fn.data
+
+# 将字符串分割后装到一个数组里面，最后输出数组的第一个元素（注意：arr没有定义默认就是一个没有元素的数组）
+$ awk 'BEGIN{str="Hadoop Kafka Strom YARN";split(str,arr," ");print arr[1]}'
+
+# 将字符串分割后装到一个数组里面，最后遍历输出数组的每一个元素（注意：arr没有定义默认就是一个没有元素的数组）
+$ awk 'BEGIN{str="Hadoop Kafka Strom YARN";split(str,arr," ");for(a in arr){print arr[a]}}'
 ```
