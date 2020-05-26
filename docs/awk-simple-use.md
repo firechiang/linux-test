@@ -164,7 +164,8 @@ $ awk 'BEGIN {FS=","} {total=$2+$3+$4;avg=total/4;printf "%d,%d,%d,平均值: %0
 $ awk 'BEGIN {FS=",";printf "%s,%s,%s,%s\n","语文","数学","英语","平均分"} {total=$2+$3+$4;avg=total/4;printf "%d,%d,%d,%0.4f\n",$2,$3,$4,avg}' aaa
 ```
 
-#### 六、awk条件以及循环语句简单使用
+#### 六、awk条件以及循环语句简单使用（复杂的awk命令或脚本建议写在一个awk脚本文件里面）
+ - 条件语句的使用
 ```bash
 # 打印aaa文件里面，每行以逗号分割后的第2个字段的值大于50并且小于100的所有行
 $ awk 'BEGIN {FS=","} {if($2>50 && $2<100) print $0}' aaa
@@ -174,11 +175,12 @@ $ awk 'BEGIN {FS=","} {if($2>50 || $2<100) {print $0}}' aaa
 $ awk 'BEGIN {FS=","} {if($2>50) {print "大于"} else {print "小于"}}' aaa
 # 打印aaa文件里面，每行以逗号分割后的第2个字段的值，打印小于50，大于100，50-100之间
 $ awk 'BEGIN {FS=","} {if($2 < 50) {print "小于50"} else if($2 > 100) {print "大于100"} else {print "50-100之间"}}' aaa
+# do while循环简单使用
 ```
 
-#### 六、将awk的命令写到一个文件当中简单使用
+ - 条件语句脚本简单使用（注意：'EOF' 加单引号，可使创建文件时，里面的$符号不会被删除，下面有使用例子）
 ```bash
-# 创建awk命令文件（注意：BEGIN后面的大括号不能换行，否则报错;；还有 \$2的反斜杠是为了转义$符号，因为不转义的话，$符号不能无法使用cat命令写入文件）
+# 创建awk命令文件（注意：BEGIN后面的大括号不能换行，否则报错；还有 \$2的反斜杠是为了转义$符号，因为不转义的话，$符号不能无法使用cat命令写入文件（也可以使用 'EOF' 加单引号来解决这个问题））
 $ cat > test.awk <<EOF
 BEGIN {
     FS=","
@@ -196,4 +198,156 @@ EOF
 
 # 执行命令（注意：-f表示指定awk命令所在文件，aaa表示要处理的数据所在文件）
 $ awk -f test.awk aaa
+```
+ 
+ - while循环简单使用（注意：这里是计算 1+2+3+...+100 的值，还有awk脚本的END语句块没有写，默认是省略掉的，还有BEGIN后面的大括号不能换行，否则报错）
+```bash
+# 创建awk脚本（注意：i和sum变量没有定义，默认就是0）
+$ cat > whileeach.awk << EOF
+BEGIN {
+    while(i<=100){
+        sum+=i
+        i++
+    }
+    print sum
+}
+EOF
+
+# 执行awk脚本文件
+$ awk -f whileeach.awk
+```
+
+ - do while 循环简单使用（注意：这里是计算 1+2+3+...+100 的值，还有awk脚本的END语句块没有写，默认是省略掉的，还有BEGIN后面的大括号不能换行，否则报错）
+```bash
+# 创建awk脚本（注意：i和sum变量没有定义，默认就是0）
+$ cat > dowhileeach.awk << EOF
+BEGIN {
+    do {
+        sum+=i
+        i++
+    } while(i<=100)
+    print sum
+}
+EOF
+
+# 执行awk脚本文件
+$ awk -f dowhileeach.awk
+```
+
+ - for循环简单使用（注意：这里是计算 1+2+3+...+100 的值，还有awk脚本的END语句块没有写，默认是省略掉的，还有BEGIN后面的大括号不能换行，否则报错）
+```bash
+# 创建awk脚本（注意：sum变量没有定义，默认就是0）
+$ cat > foreach.awk << EOF
+BEGIN {
+    for(i=0;i<=100;i++) {
+        sum+=i
+    }
+    print sum
+}
+EOF
+
+# 执行awk脚本文件
+$ awk -f foreach.awk
+```
+
+ - 使用awk脚本输出文件里面平均分大于90的数据 和 累加每一列的值（注意：BEGIN后面的大括号不能换行，否则报错）
+```bash
+# 创建数据文件
+$ cat > student.data << EOF
+Name Aa Dd Fd Fk
+Alle 80 10 20 10
+Msad 93 98 92 91
+Maom 86 89 68 92
+Ha   78 99 88 100
+Lo   88 56 89 25
+EOF
+
+# 创建awk脚本（注意：'EOF' 有单引号，表示创建文件时，里面的$符号不会被删除）
+$ cat > student.awk << 'EOF'
+BEGIN {
+    # %-10s：%s 表示取字符串变量，10 表示在前面加10个空字符，- 表示表示左对齐
+    printf "%-10s%-10s%-10s%-10s%-10s%-10s\n","Name","Aa","Dd","Fd","Fk","平均分"
+}
+
+{   # 把一行的所有分数相加（$2表示取第2列的值，$3表示取第3列的值）
+    total=$2+$3+$4+$5
+    # 平均分
+    avg=total/4
+    if(avg>90) {
+        # 打印 名称，分数，平均分（%-10s：%s 表示取字符串变量，10 表示在前面加10个空字符，- 表示表示左对齐）
+        printf "%-10s%-10d%-10d%-10d%-10d%-0.2f\n",$1,$2,$3,$4,$5,avg
+        
+      # 累加平均分大于90的每一列（注意：变量没有定义默认就是0，$2表示取第2列的值，$3表示取第3列的值）
+	   total_Aa+=$2
+	   total_Dd+=$3
+	   total_Fd+=$4
+	   total_Fk+=$5
+	   total_avg+=avg
+    }
+}
+
+END {
+    # 打印每一列的总和
+    printf "%-10s%-10d%-10d%-10d%-10d%-0.2f\n","总和",total_Aa,total_Dd,total_Fd,total_Fk,total_avg
+
+}
+EOF
+
+# 执行awk脚本处理文件
+$ awk -f student.awk student.data
+```
+
+#### 七、awk里面常用的字符串函数
+ - 字符串函数对照表
+```bash
+---------------------|-----------------------------------------------------------------------------------------
+  function           |  说明
+---------------------|----------------------------------------------------------------------------------------- 
+length(str)          |  字符串长度
+index(str1,str2)     |  在str1中找str2的位置
+tolower(str)         |  转为小写
+toupper(str)         |  转大写
+substr(str,m,n)      |  从str的m个字符开始截取n位
+split(str,arr,fs)    |  按fs切割字符串，结果保存到arr数组里面，返回切割后子串的个数
+match(str,RE)        |  在str中按照RE查找，返回位置（注意：RE是正则表达式）
+sub(RE,RepStr,str)   |  在str中搜索符合RE的子串，将其替换为RepStr（替换一个）（注意：RE是正则表达式），最后返回替换的个数
+gsub(RE,RepStr,str)  |  在str中搜索符合RE的子串，将其替换为RepStr（替换所有）（注意：RE是正则表达式），最后返回替换的个数
+---------------------|-----------------------------------------------------------------------------------------
+```
+
+- 字符串函简单使用（注意：'EOF' 有单引号，表示创建文件时不会转义字符）
+```bash
+# 创建数据文件
+$ cat > str_fn.data << 'EOF'
+root:x:0:0:root:/root:/bin/bash
+bin:x:1:1:bin:/bin:/sbin/nologin
+daemon:x:2:2:daemon:/sbin:/sbin/nologin
+adm:x:3:4:adm:/var/adm:/sbin/nologin
+lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+EOF
+
+# 创建一个输出每一行以冒号分割后，子串的长度的awk脚本
+$ cat > str_fn.awk << 'EOF'
+BEGIN{
+    # 以冒号分割一行字符串 
+    FS=":"
+}
+# 注意：这里面的代码是每一行数据执行一次
+{
+    i=1
+    # NF 表示分割后子串的个数
+    while(i<=NF){
+        # 打印子串的长度
+        printf "%d",length($i)
+        if(i != NF){
+            printf ":"
+        }
+        i++
+    }
+    print ""
+
+}
+EOF
+
+$ awk -f str_fn.awk str_fn.data
 ```
