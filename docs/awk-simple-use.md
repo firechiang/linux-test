@@ -388,7 +388,68 @@ $ awk -v num1=20 -v name="天天" 'BEGIN{print num1,name}'
 $ awk -F ":" 'BEGIN{} {print $1} END{}' /etc/passwd
 ```
 
-#### 九、awk中数组简单使用
+#### 九、awk中数组简单使用（注意：awk中数组元素从1开始，而且数据结构类似于JAVA的Map，而且还能做运算。最后注意：\ 反斜杠表示命令换行）
 ```bash
+# 数组的定义和赋值（注意：因为是直接命令行执行所以每一行后面要写分号，如果把命令写到脚本文件里面就不用写了）
+$ awk 'BEGIN {                                       \
+      # 定义数组 sites，并给runoob和google下标赋值                       \
+      sites["runoob"]="www.runoob.com";              \
+      sites["google"]="www.google.com";              \
+      print sites["runoob"] "\n" sites["google"];    \
+      # 删除数组下标为google的元素                                                                   \
+      delete sites["google"];                        \
+      print "删除后再打印";                            \
+      print sites["runoob"] "\n" sites["google"]     \
+  }'
+  
+# 数组的运算（注意：因为是直接命令行执行所以每一行后面要写分号，如果把命令写到脚本文件里面就不用写了） 
+$ awk 'BEGIN {                                       \
+      # 定义数组 sites，并给runoob和google下标赋值                       \
+      sites["runoob"]= 1;                            \
+      sites["google"]= 10;                           \
+      print sites["runoob"] "\n" sites["google"];    \
+      # 数组下标为runoob的元素的值加100                  \
+      sites["runoob"]+=100;                          \
+      print "运算后再打印";                            \
+      print sites["runoob"] "\n" sites["google"]     \
+  }'  
 
+
+# 将字符串分割后装到一个数组里面，最后遍历输出数组的每一个元素（注意：arr没有定义默认就是一个没有元素的数组）
+$ awk 'BEGIN{str="Hadoop Kafka Strom YARN";split(str,arr," ");for(a in arr){print arr[a]}}'
+```
+
+#### 十、awk复杂脚本使用
+```bash
+# 创建数据文件
+$ cat > complex.data << 'EOF'
+2020-01-22 00:56:30 1 Batches: user allen insert 22498 records into database:product table:detail, insert 20771 records successfully,failed 1727 records
+2020-01-22 00:45:22 1 Batches: user moamoa insert 154515 records into database:product table:detail, insert 10258 records successfully,failed 144257 records
+2020-01-22 00:23:32 1 Batches: user tianitna insert 101012 records into database:product table:detail, insert 20545 records successfully,failed 80467 records
+2020-01-22 00:10:10 1 Batches: user wenjuan insert 454545 records into database:product table:detail, insert 21548 records successfully,failed 432997 records
+2020-01-22 00:56:30 1 Batches: user allen insert 22498 records into database:product table:detail, insert 20771 records successfully,failed 1727 records
+2020-01-22 00:45:22 1 Batches: user moamoa insert 154515 records into database:product table:detail, insert 10258 records successfully,failed 144257 records
+2020-01-22 00:23:32 1 Batches: user tianitna insert 101012 records into database:product table:detail, insert 20545 records successfully,failed 80467 records
+2020-01-22 00:10:10 1 Batches: user wenjuan insert 454545 records into database:product table:detail, insert 21548 records successfully,failed 432997 records
+EOF
+
+# 分别输出每个用户共插入的数据数量
+$ cat > complex.awk1 << 'EOF'
+BEGIN{
+    printf "%-10s%-10s","User","Total Records\n"
+}
+{
+    # 定义数组，下标使用用户名表示，值是第8列的值
+    # 注意：这个数组可以看成是JAVA里面的Map，键是用户名，值是用户名相同的所有行第8列的值相加（就是所有Key相同的值相加），最后得到一个Map式的数组
+    USER[$6]+=$8
+}
+END{
+    # 遍历数组Map
+    for(u in USER) {
+        printf "%-10s%-10d\n",u,USER[u]
+    }
+}
+EOF
+
+$ awk -f complex.awk1 complex.data
 ```
