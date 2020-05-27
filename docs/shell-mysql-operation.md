@@ -189,4 +189,7 @@ do
     $mysql_conn -D"$db_name" -e "insert into student values('$id','$name','$birch','$sex')"
 done
 EOF
+
+# 执行脚本
+$ ./load_data.sh
 ```
