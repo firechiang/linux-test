@@ -193,3 +193,74 @@ EOF
 # 执行脚本
 $ ./load_data.sh
 ```
+
+#### 六、mysql数据备份命令mysqldump详解
+```bash
+---------|--------------------------------------------
+option   |  说明
+---------|--------------------------------------------
+-u       |  指定用户名
+---------|--------------------------------------------
+-p       |  指定密码
+---------|--------------------------------------------
+-h       |  指定服务器地址
+---------|--------------------------------------------
+-d       |  等价于--on-data（只导出表结构）
+---------|--------------------------------------------
+-t       |  等价于--on-create-info（只导出数据，不导出建表语句）
+---------|--------------------------------------------
+-A       |  等价于--all-databases（导出有权限的所有数据库）
+---------|--------------------------------------------
+-B       |  等价于--databases（指定一个或多个数据库）
+---------|--------------------------------------------
+--where  |  指定表数据的过滤条件
+---------|--------------------------------------------
+
+# 导出school数据库所有数据包括表结构
+$ mysqldump -ujiang -pjiang -h127.0.0.1 school > db.sql
+
+# 导出school数据库的student表的所有数据包括表结构
+$ mysqldump -ujiang -pjiang -h127.0.0.1 school student > db-student.sql
+
+# 导出school数据库的student表的s_id=1001的所有数据包括表结构
+$ mysqldump -ujiang -pjiang -h127.0.0.1 school student --where="s_id=1001" > db-student-where.sql
+
+# 导出school和test数据库所有的数据包括表结构
+$ mysqldump -ujiang -pjiang -h127.0.0.1 -B school test > db-school-test.sql
+```
+
+#### 七、创建mysqldump备份数据，再将备份数据传送到FTP服务器脚本
+```bash
+#!/bin/bash
+#
+# 数据库相关变量
+db_user="jiang"
+db_password="jiang"
+db_host="127.0.0.1"
+
+# ftp服务器相关变量
+ftp_user="ftp-jiang"
+ftp_password="ftp-jiang"
+ftp_host="127.0.0.1"
+
+# 远程目录
+dst_dir="/home/backup"
+# 当前时间
+time_data="`date +%Y%m%d%H%M%S`"
+# 备份后数据的文件名
+file_name="school_student_${time_data}.sql"
+
+# ftp上传文件函数（参数是要上传的文件地址（注意：结尾的EOF要顶格写，否则报错））
+up_load{
+    ftp -niv << EOF
+        open $ftp_host
+        user $ftp_user $ftp_password
+        
+        cd $dst_dir
+        put $1
+        bye
+EOF
+}
+# 备份school数据student表的所有数据 并且 调用up_load函数将备份文件上传到ftp服务器
+mysqldump -u"$db_user" -p"$db_password" -h"$db_host" school student > ./$file_name && up_load ./$file_name
+```
