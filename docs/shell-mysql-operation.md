@@ -1,4 +1,31 @@
-#### 一、创建数据表
+#### 一、mysql命令详解（注意：参数后面不需要加空格，比如 -P3306）
+```bash
+-------|-----------------------------
+option | 说明
+-------|-----------------------------
+-u     | 指定用户名
+-------|------------------------------
+-p     | 指定密码
+-------|------------------------------
+-h     | 指定服务器地址
+-------|------------------------------
+-D     | 指定要连接是数据库
+-------|------------------------------
+-N     | 指定不输出列的信息
+-------|------------------------------
+-B     | 指定使用tab键代替默认交互分隔符
+-------|------------------------------
+-e     | 指定要执行的sql语句
+-------|------------------------------
+-E     | 垂直输出
+-------|------------------------------
+-H     | 以HTML格式输出
+-------|------------------------------
+-X     | 以XML格式输出
+-------|------------------------------
+```
+
+#### 二、创建数据表
 ```bash
 # 创建sql文件
 $ cat > school.sql << 'EOF'
@@ -94,7 +121,7 @@ insert into `score` values('1011','1003',58);
 EOF
 ```
 
-#### 二、导入MySQL数据文件
+#### 三、导入MySQL数据文件
 ```bash
 # 进入MySQL命令行
 $ mysql
@@ -109,4 +136,57 @@ $ mysql school < school.sql
 
 # 使用用户将登陆MySQL
 $ mysql -h 127.0.0.1 -P 3306 -u jiang -pjiang
+```
+
+#### 四、使用脚本控制mysql简单使用
+```bash
+# 创建一个用来执行sql的脚本
+$ cat > exe_sql.sh << 'EOF'
+#!/bin/bash
+#
+user="jiang"
+password="jiang"
+host="127.0.0.1"
+// 要执行的sql和数据名称使用参数传进来
+db_name="$1"
+sql="$2"
+# 获取变量的值建议使用双引号包起来
+mysql -u"$user" -p"$password" -h"$host" -D"$db_name" -B -e "$sql"
+EOF
+
+# 执行脚本
+$ ./exe_sql.sh "school" "select * from student"
+```
+
+#### 五、将特定文本数据导入到mysql（注意：mysql本身有自带的load data命令，只能导入固定格式的数据）
+```bash
+# 创建数据文件
+$ cat > data.txt << 'EOF'
+1012 zhaolei 1998-01-02 male
+1013 moamoa 1968-12-12 male
+1014 zhanai 1989-09-22 male
+1015 wenjuan 1990-11-11 female
+1016 maoai 1978-02-02 male
+EOF
+
+# 创建导入数据脚本
+$ cat > load_data.sh << 'EOF'
+#!/bin/bash
+#
+user="jiang"
+password="jiang"
+host="127.0.0.1"
+db_name="school"
+
+mysql_conn="mysql -u"$user" -p"$password" -h"$host" "
+
+# 指定linux系统默认读取数据分隔符（注意：这个linux系统默认的环境变量，它的默认值是空格或tab键）
+IFS=" "
+
+# while read 循环读取命令默认会用空格或tab键分割数据（我们只需定义变量将分割后的数据接住即可，就像下面这样）
+cat data.txt | while read id name birch sex
+do
+    $mysql_conn -D"$db_name" -e "insert into student values('$id','$name','$birch','$sex')"
+done
+EOF
 ```

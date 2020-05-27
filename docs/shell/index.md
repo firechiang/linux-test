@@ -222,6 +222,18 @@ $ grep -r 90                               # 在当前目录下搜索所有文�
 $ netstat -ntlp | grep 25                  # 查询netstat -ntlp命令结果数据包含25的数据
 ```
 
-#### 十三、[sed 文件流编辑器简单使用（修改删除文件里面的数据）](https://github.com/firechiang/linux-test/tree/master/docs/sed-simple-use.md)
+#### 十三、while read循环读取文件每一行数据简单使用（注意：while read 循环读取命令默认会用空格或tab键分割数据（我们只需定义变量将分割后的数据接住即可，[详情可参考]()）
+```bash
+#!/bin/bash
+#
+# 指定linux系统默认读取数据分隔符（注意：这个linux系统默认的环境变量，它的默认值是空格或tab键）
+IFS=" "
+cat file_path | while read line 
+do 
+    echo $line 
+done
+```
 
-#### 十四、[awk 文本处理工具以及报告生成器简单使用](https://github.com/firechiang/linux-test/tree/master/docs/awk-simple-use.md)
+#### 十四、[sed 文件流编辑器简单使用（修改删除文件里面的数据）](https://github.com/firechiang/linux-test/tree/master/docs/sed-simple-use.md)
+
+#### 十五、[awk 文本处理工具以及报告生成器简单使用](https://github.com/firechiang/linux-test/tree/master/docs/awk-simple-use.md)
