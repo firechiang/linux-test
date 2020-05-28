@@ -120,6 +120,8 @@ if [ ! -e $home_dir/$config_file ];then
     exit 1
 fi
 
+awk 'BEGIN{printf "%-16s%-7s%-6s%-8s%-8s%-6s%-14s\n","进程名称","进程组","进程状态","进程PID","CPU占用","内存占用","进程启动时间"}'
+
 # 如果参数的个数大于零
 if [ $# -gt 0 ];then
     # 如果第一个参数是-g
