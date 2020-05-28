@@ -1,4 +1,4 @@
-#### 一、创建[vi /home/lesson/9.1/app-status.sh]进程管理脚本
+#### 一、创建[vi /home/lesson/9.1/app-status.sh]进程管理脚本（注意：这个脚本其实就是把你想要管理状态的进程写到配置文件里面，然后脚本读取配置文件，输出进程相关信息）
 ```bash
 #!/bin/bash
 #
@@ -147,4 +147,32 @@ else
 	    print_process_info $pn `get_group_by_process_name $pn`
 	done
 fi
+```
+
+#### 二、创建[vi /home/lesson/9.1/process.cfg]进程管理配置文件
+```bash
+[HADOOP]
+YARN
+namenode
+datanode
+
+[WEB]
+httpd
+nginx
+[SYS]
+UnixLauncher
+```
+
+#### 三、测试进程状态管理脚本（注意：这个脚本其实就是把你想要管理状态的进程写到配置文件里面，然后脚本读取配置文件，输出进程相关信息）
+```bash
+$ cd /home/lesson/9.1
+
+# 查看配置文件里面所有进程的状态
+$ ./app-status.sh
+
+# 查看配置文件里面SYS进程组下所有子进程的状态
+$ ./app-status.sh -g SYS
+
+# 查看配置文件里面SYS和HADOOP进程组下所有子进程的状态
+$ ./app-status.sh -g SYS HADOOP
 ```
