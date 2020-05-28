@@ -111,7 +111,7 @@ function print_process_info
     # 如果进程不存在
     else
         # 打印输出信息
-        awk -v pon=$1 -v pog=$2 -v pos="STOPED" 'BEGIN{printf "%-20s%-10s%-10s%-10s%-10s%-10s%-15s\n",pon,pog,pos,"NULL","0.0","0.0","NULL"}'
+        awk -v pon="$1" -v pog="$2" -v pos="STOPED" 'BEGIN{printf "%-20s%-10s%-10s%-10s%-10s%-10s%-15s\n",pon,pog,pos,"NULL","0.0","0.0","NULL"}'
     fi
 }
 
