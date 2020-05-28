@@ -251,7 +251,7 @@ time_data="`date +%Y%m%d%H%M%S`"
 file_name="school_student_${time_data}.sql"
 
 # ftp上传文件函数（参数是要上传的文件地址（注意：结尾的EOF要顶格写，否则报错））
-up_load{
+function up_load{
     ftp -niv << EOF
         open $ftp_host
         user $ftp_user $ftp_password
