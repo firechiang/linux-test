@@ -65,8 +65,13 @@ $ ifconfig ens33:0 192.168.230.141
 $ ifconfig ens33:0 down
 ```
 
-#### 四、查看和修改DNS服务器地址
+#### 四、查看机器网络详细信息和修改DNS服务器地址
 ```bash
-$ more /etc/resolv.conf                         # 查看所有的DNS服务地址
+$ nmcli conn show -a                            # 获取机器网卡信息
+$ nmcli conn show chiang-fire                   # 查看chiang-fire详细的网络信息，包括IP，网关，DNS，子网掩码等信息（注意：chiang-fire可使用（nmcli conn show -a）命令获取，取NAME字段）
+
+$ more /etc/resolv.conf                         # 单独查看所有的DNS服务地址
 $ vi /etc/resolv.conf                           # 修改DNS服务地址
+
+$ ip route show                                 # 单独查看网关地址
 ```
