@@ -24,9 +24,9 @@ lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 ```
 
-#### 二、使用 more /etc/sysconfig/network-scripts/ifcfg-ens33 命令查看网卡配置文件信息说明以及固定IP配置
+#### 二、使用 more /etc/sysconfig/network-scripts/ifcfg-ens33 命令查看网卡配置文件信息说明以及固定IP配置（注意：如果想创建虚拟网卡，只要将该文件复制一份，再修改NAME，DEVICE，UUID即可，还有文件名后半截需和NAME，DEVICE的值一致（比如文件名是 ifcfg-ens34 那么NAME，DEVICE的值就应该是ens34））
 ```bash
-TYPE="Ethernet"                                 # 以太网（就是网线网口），当然还有其它类型
+TYPE="Ethernet"                                 # 以太网（就是网线网口），当然还有其它类型 Bridge=桥接网络
 PROXY_METHOD="none"                             # 代理方式（none=关闭状态）
 BROWSER_ONLY="no"                               # 是否只是浏览
 BOOTPROTO="dhcp"                                # 是否自动获取IP（none=自动获取，static=自定义IP，dhcp=通过dhcp自动获取IP）
@@ -43,11 +43,13 @@ DEVICE="ens33"                                  # 网卡设备名称（必须和
 ONBOOT="yes"                                    # 是否随网络服务启动（就是是否开机启动）
 
 # 固定IP相关配置（注意：要把上面的BOOTPROTO配置成static）
-# 虚拟机配置桥接网络只要将NETMASK（子网掩码），GATEWAY（默认网关），DNS（域名解析）和宿主机配置相同即可，当然固定IP须在同一网段
+# 虚拟机桥接网络将NETMASK（子网掩码），GATEWAY（默认网关），DNS（域名解析）和宿主机配置相同，当然固定IP须在同一网段
+# 虚拟机桥接网络将上面的TYPE设置成"Bridge"以及将DEVICE和NAME配置成和宿主机的相同（注意：要桥接宿主机的哪个网络就和哪个网络相同）
 IPADDR="172.20.10.10"                           # 固定IP（注意：不要和 broadcast 子网广播地址一致）
 NETMASK="255.255.255.240"                       # 子网掩码
 GATEWAY="172.20.10.1"                           # 默认网关（一般都是IP段的第一个，也可以不配置（如果是虚拟器配置桥接网络就要配置））
 DNS1="172.20.10.1"                              # DNS（一般和网关一致）
+# PREFIX="28"                                   # 掩码（注意：这个一般不匹配）
 
 # 重启网络服务使固定IP生效
 $ service network restart                      
@@ -74,4 +76,17 @@ $ more /etc/resolv.conf                         # 单独查看所有的DNS服务
 $ vi /etc/resolv.conf                           # 修改DNS服务地址
 
 $ ip route show                                 # 单独查看网关地址
+```
+
+#### 五、netstat 命令简单使用（注意：该命令需要安装 net-tools 工具）
+```bash
+$ netstat -an | grep tcp                        # 查看所有的tcp端口的监听和连接（LISTEN=已监听的端口，ESTABLISHED=已连接的客户端）
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN     
+tcp        0      0 127.0.0.1:25            0.0.0.0:*               LISTEN     
+tcp        0     52 192.168.83.145:22       192.168.83.1:9320       ESTABLISHED
+tcp6       0      0 :::22                   :::*                    LISTEN     
+tcp6       0      0 ::1:25                  :::*                    LISTEN
+
+$ 
+
 ```
