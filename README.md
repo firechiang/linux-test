@@ -152,8 +152,33 @@ $ which -b mysql                         # 查找mysql可执行文件所在目�
 $ which java                             # 查找某个程序安装目录（这个命令找的是java的安装目录）   
 ```
 
-#### 十八、其它命令用法
+#### 十八、新建用户和赋予root权限
 ```bash
+$ su root                                # 切换到root账号，以便创建新的账号
+$ adduser chiang-fire                    # 添加用户，名字叫 chiang-fire
+$ passwd chiang-fire                     # 修改 chiang-fire 账户密码
+Changing password for user chiang-fire.
+New password: 
+BAD PASSWORD: The password is shorter than 8 characters
+Retype new password: 
+passwd: all authentication tokens updated successfully.
+
+$ cat /etc/passwd                        # 查看用户是否创建成功（如果成功了，在这个文件里面会有刚刚创建的那个用户信息）
+
+$ id chiang-fire                         # 查看用户 chiang-fire 权限信息（注意：这个时候是没有root权限）
+uid=1000(chiang-fire) gid=1000(chiang-fire) groups=1000(chiang-fire)
+
+$ usermod -g root chiang-fire            # 赋予账号 root 权限给chiang-fire账户（其实就是将chiang-fire账户添加到root组里）
+
+$ su chiang-fire                         # 切换到chiang-fire账户
+
+$ id chiang-fire                         # 查看用户 chiang-fire 权限信息（gid=0(root) groups=0(root) 表示有root权限了）
+uid=1000(chiang-fire) gid=0(root) groups=0(root)
+```
+
+#### 十九、其它命令用法
+```bash
+$ who                                    # 查看当前用户信息
 $ type yum                               # 查看 yum 命令相关信息（一般会显示脚本所在路径）
 $ yum -y install psmisc                  # 安装可以以树状图显示程序安装包详细信息工具（就是支持：pstree 命令）
 
