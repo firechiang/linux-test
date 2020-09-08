@@ -54,11 +54,11 @@ $ service network restart
 ```
 
 #### 三、创建桥接网卡（注意：桥接网卡依赖 bridge-utils 工具，可以先验证是否有 brctl 命令，如果没有就安装 yum install bridge-utils）
-#####、3.1 复制原有的网卡配置文件内容创建一个新的虚拟桥接网卡配置文件
+##### 3.1、复制原有的网卡配置文件内容创建一个新的虚拟桥接网卡配置文件
 ```bash
 $ cp /etc/sysconfig/network-scripts/ifcfg-ens33 /etc/sysconfig/network-scripts/ifcfg-bridge0
 ```
-#####、3.2 修改 [vi /etc/sysconfig/network-scripts/ifcfg-bridge0] 虚拟桥接网卡配置文件
+##### 3.2、修改 [vi /etc/sysconfig/network-scripts/ifcfg-bridge0] 虚拟桥接网卡配置文件
 ```bash
 TYPE="Bridge"                                   # 这个必须修改成Bridge（网桥模式）
 PROXY_METHOD="none"
@@ -82,12 +82,12 @@ ONBOOT="yes"
 #DNS1="192.168.1.1"
 ```
 
-#####、3.3 修改 [vi /etc/sysconfig/network-scripts/ifcfg-ens33] 原有网卡配置文件,在最后一行添加网桥名称
+##### 3.3、修改 [vi /etc/sysconfig/network-scripts/ifcfg-ens33] 原有网卡配置文件,在最后一行添加网桥名称
 ```bash
 BRIDGE=bridge0
 ```
 
-#####、3.4 重启网络服务和验证网桥是否配置成功（注意：如果虚拟机想要使用桥接网络，只要安装虚拟机时选择使用这个桥接网卡即可）
+##### 3.4、重启网络服务和验证网桥是否配置成功（注意：如果虚拟机想要使用桥接网络，只要安装虚拟机时选择使用这个桥接网卡即可）
 ```bash
 # 重启网络服务或使用命令： ifup '网卡名称' 重启网卡
 $ service network restart                       
