@@ -145,13 +145,12 @@ $ ip route show                                 # 单独查看网关地址
 
 #### 六、netstat 命令简单使用（注意：该命令需要安装 net-tools 工具）
 ```bash
+$ netstat -ntlp                                 # 查看所有已监听的tcp端口
+$ netstat -tuln                                 # 查看所有已监听的tcp和udp端口
 $ netstat -an | grep tcp                        # 查看所有的tcp端口的监听和连接（LISTEN=已监听的端口，ESTABLISHED=已连接的客户端）
 tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN     
 tcp        0      0 127.0.0.1:25            0.0.0.0:*               LISTEN     
 tcp        0     52 192.168.83.145:22       192.168.83.1:9320       ESTABLISHED
 tcp6       0      0 :::22                   :::*                    LISTEN     
 tcp6       0      0 ::1:25                  :::*                    LISTEN
-
-$ netstat -ntlp                                 # 查看所有已监听的tcp端口
-$ netstat -tuln                                 # 查看所有已监听的tcp和udp端口
 ```
