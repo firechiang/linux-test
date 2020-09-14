@@ -207,6 +207,9 @@ $ cat /etc/passwd | cut -d: -f1          # 获取所有用户（说明：先获�
 $ dd if=./ of=test.db bs=512k count=2    # 在当前目录生成一个test.db文件，大小是1M（大小=bs * count）
 
 $ ${#array[@]}                           # 获取数组array的长度
+
+$ glxinfo | grep OpenGL                  # 查看显卡驱动相关信息
+$ glxgears                               # 测试显卡性能
 ```
 
 [1]: https://github.com/firechiang/linux-test/tree/master/docs/ipv4-parameter-optimization.md
