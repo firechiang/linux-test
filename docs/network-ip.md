@@ -143,7 +143,7 @@ $ vi /etc/resolv.conf                           # 修改DNS服务地址
 $ ip route show                                 # 单独查看网关地址
 ```
 
-#### 六、netstat 命令简单使用（注意：该命令需要安装 net-tools 工具）
+#### 六、netstat 命令简单使用（注意：该命令需要安装 net-tools 工具，但是 net-tools 工具被废弃了，可使用 ss 命令代替 netstat 命令，参数还是一样）
 ```bash
 $ netstat -ntlp                                 # 查看所有已监听的tcp端口
 $ netstat -tuln                                 # 查看所有已监听的tcp和udp端口
