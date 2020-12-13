@@ -157,7 +157,8 @@ $ cd /cygdrive                  # 进入电脑根目录
 ##### 安装配置java环境变量[vi /etc/profile]在文件末加入如下配置
 ```bash
 export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64 
-export PATH=$JAVA_HOME/bin:$PATH 
+export PATH=$PATH:$JAVA_HOME/bin
+# 这个可以不要
 export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar 
 
 
