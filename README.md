@@ -210,6 +210,9 @@ $ ${#array[@]}                           # 获取数组array的长度
 
 $ glxinfo | grep OpenGL                  # 查看显卡驱动相关信息
 $ glxgears                               # 测试显卡性能
+
+$ rpm -qa | grep 软件名                   # 查看是否安装了某软件
+$ rpm -e --nodeps 软件名                  # 强力删除，对相关依赖的文件也进行强力删除
 ```
 
 [1]: https://github.com/firechiang/linux-test/tree/master/docs/ipv4-parameter-optimization.md
