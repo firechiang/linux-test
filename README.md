@@ -214,6 +214,11 @@ $ glxgears                               # 测试显卡性能
 $ rpm -qa | grep 软件名                   # 查看是否安装了某软件
 $ rpm -ql nginx                          # 查看nginx安装的详细信息包括软件安装目录
 $ rpm -e --nodeps 软件名                  # 强力删除，对相关依赖的文件也进行强力删除
+
+$ kill -l                                # 查看系统所有的信号量（就是 kill 命令所有参数的含义）
+$ kill -15 PID                           # 优雅关闭进程
+$ kill -9 PID                            # 强制关闭进程
+$ kill -1                                # 要进程重读配置文件（注意：这个需要程序实现了这个功能）
 ```
 
 [1]: https://github.com/firechiang/linux-test/tree/master/docs/ipv4-parameter-optimization.md
