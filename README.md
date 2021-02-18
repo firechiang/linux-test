@@ -215,6 +215,9 @@ $ rpm -qa | grep 软件名                   # 查看是否安装了某软件
 $ rpm -ql nginx                          # 查看nginx安装的详细信息包括软件安装目录
 $ rpm -e --nodeps 软件名                  # 强力删除，对相关依赖的文件也进行强力删除
 
+$ lscpu                                  # 查看CPU配置相关信息
+$ free -h                                # 查看机器内存相关信息
+
 $ kill -l                                # 查看系统所有的信号量（就是 kill 命令所有参数的含义）
 $ kill -15 PID                           # 优雅关闭进程
 $ kill -9 PID                            # 强制关闭进程
