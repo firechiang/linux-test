@@ -212,6 +212,7 @@ $ glxinfo | grep OpenGL                  # 查看显卡驱动相关信息
 $ glxgears                               # 测试显卡性能
 
 $ rpm -qa | grep 软件名                   # 查看是否安装了某软件
+$ rpm -ql nginx                          # 查看nginx安装的详细信息包括软件安装目录
 $ rpm -e --nodeps 软件名                  # 强力删除，对相关依赖的文件也进行强力删除
 ```
 
