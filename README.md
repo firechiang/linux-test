@@ -218,7 +218,7 @@ $ rpm -e --nodeps 软件名                  # 强力删除，对相关依赖的
 $ kill -l                                # 查看系统所有的信号量（就是 kill 命令所有参数的含义）
 $ kill -15 PID                           # 优雅关闭进程
 $ kill -9 PID                            # 强制关闭进程
-$ kill -1                                # 要进程重读配置文件（注意：这个需要程序实现了这个功能）
+$ kill -1 PID                            # 要进程重读配置文件（注意：这个需要程序实现了这个功能）
 ```
 
 [1]: https://github.com/firechiang/linux-test/tree/master/docs/ipv4-parameter-optimization.md
