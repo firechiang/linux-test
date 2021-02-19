@@ -95,7 +95,7 @@ $ su elk-admin                                             # 切换到elk-admin
 ```bash
 # 创建 haproxy 用户组
 $ sudo groupadd -r -g 149 haproxy
-# 创建 haproxy 用户，并且配置 haproxy 用户没有登录权限
+# 创建用户 haproxy（-g 指定用户组，-r 表示为系统用户，-s /sbin/nologin表示没有登录权限，-u 指定用户ID）
 $ sudo useradd -g haproxy -r -s /sbin/nologin -u 149 haproxy
 ```
 
