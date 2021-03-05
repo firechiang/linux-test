@@ -78,7 +78,7 @@ $ echo 'net.ipv4.tcp_synack_retries = 3' >> /etc/sysctl.conf            # 修改
 ```bash
 $ sysctl net.ipv4.tcp_fin_timeout                                       # 查看FIN_WAIT状态的TCP连接的超时时间
 
-$ echo 'net.ipv4.tcp_fin_timeout = 30' >> /etc/sysctl.conf              # 查看FIN_WAIT状态的TCP连接的超时时间
+$ echo 'net.ipv4.tcp_fin_timeout = 30' >> /etc/sysctl.conf              # 修改FIN_WAIT状态的TCP连接的超时时间
 ```
 
 #### TCP连接SYN队列大小（默认值：128）
@@ -86,6 +86,18 @@ $ echo 'net.ipv4.tcp_fin_timeout = 30' >> /etc/sysctl.conf              # 查看
 $ sysctl net.ipv4.tcp_max_syn_backlog                                   # 查看TCP连接SYN队列大小
 
 $ echo 'net.ipv4.tcp_max_syn_backlog = 4096' >> /etc/sysctl.conf        # 修改TCP连接SYN队列大小
+```
+
+#### TCP Keepalive（检测连接是否应该保持，建议优化修改）
+```bash
+$ sysctl tcp_keepalive_time                                             # 查看连接成功，多久以后发送第一次检测数据包
+$ echo 'tcp_keepalive_time = 60' >> /etc/sysctl.conf                    # 修改连接成功，多久以后发送第一次检测数据包（单位秒）
+
+$ sysctl tcp_keepalive_intvl                                            # 查看检测连接是否应该保持的间隔时间
+$ echo 'tcp_keepalive_intvl = 60' >> /etc/sysctl.conf                   # 修改检测连接是否应该保持的间隔时间
+
+$ sysctl tcp_keepalive_probes                                           # 查看检测连接是否应该保持的检测总次数
+$ echo 'tcp_keepalive_probes = 5' >> /etc/sysctl.conf                   # 修改检测连接是否应该保持的检测总次数
 ```
 
 #### 网络设备的收发包的队列大小（默认值：1000）
