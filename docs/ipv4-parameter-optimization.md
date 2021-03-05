@@ -94,10 +94,10 @@ $ sysctl tcp_keepalive_time                                             # 查看
 $ echo 'tcp_keepalive_time = 60' >> /etc/sysctl.conf                    # 修改连接成功，多久以后发送第一次检测数据包（单位秒）
 
 $ sysctl tcp_keepalive_intvl                                            # 查看检测连接是否应该保持的间隔时间
-$ echo 'tcp_keepalive_intvl = 60' >> /etc/sysctl.conf                   # 修改检测连接是否应该保持的间隔时间
+$ echo 'tcp_keepalive_intvl = 60' >> /etc/sysctl.conf                   # 修改检测连接是否应该保持的间隔时间（单位秒）
 
 $ sysctl tcp_keepalive_probes                                           # 查看检测连接是否应该保持的检测总次数
-$ echo 'tcp_keepalive_probes = 5' >> /etc/sysctl.conf                   # 修改检测连接是否应该保持的检测总次数
+$ echo 'tcp_keepalive_probes = 5' >> /etc/sysctl.conf                   # 修改检测连接是否应该保持的检测总次数（单位秒）
 ```
 
 #### 网络设备的收发包的队列大小（默认值：1000）
