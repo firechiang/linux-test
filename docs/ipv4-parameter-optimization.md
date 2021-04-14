@@ -107,7 +107,7 @@ $ sysctl net.ipv4.tcp_max_syn_backlog                                   # 查看
 $ echo 'net.ipv4.tcp_max_syn_backlog = 4096' >> /etc/sysctl.conf        # 修改TCP连接SYN队列大小
 ```
 
-#### 网络设备的收发包的队列大小（默认值：1000）
+#### 网络设备的收发包的队列大小，值越大可建立的TCP连接数越多（默认值：1000）
 ```bash
 $ sysctl net.core.netdev_max_backlog                                    # 网络设备的收发包的队列大小
 
