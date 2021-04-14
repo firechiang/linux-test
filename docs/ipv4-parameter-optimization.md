@@ -102,6 +102,13 @@ $ sysctl net.ipv4.tcp_fin_timeout                                       # 查看
 $ echo 'net.ipv4.tcp_fin_timeout = 30' >> /etc/sysctl.conf              # 修改FIN_WAIT状态的TCP连接的超时时间
 ```
 
+#### 启用TCP Fast_Open功能（TCP三次握手成功后，客户端会得到一个ack+cookies，当断开连接后，下一次连接只要携带ack+cookies即可建立连接，而不需要三次握手，只需要一次，从而加快连接速度，进而加快服务器的吞吐量。（注意：这个功能同时也需要客户端支持TCP Fast_Open才能生效））（默认值：0=未开启）
+```bash
+$ sysctl net.ipv4.tcp_fastopen                                          # 查看是否开启TCP Fast_Open功能
+
+$ echo 'net.ipv4.tcp_fastopen = 1' >> /etc/sysctl.conf                  # 启用TCP Fast_Open功能
+```
+
 #### TCP连接SYN队列大小，值越大可建立的TCP连接数越多（默认值：2048）
 ```bash
 $ sysctl net.ipv4.tcp_max_syn_backlog                                   # 查看TCP连接SYN队列大小
