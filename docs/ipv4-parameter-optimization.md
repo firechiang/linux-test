@@ -100,7 +100,7 @@ $ sysctl net.ipv4.tcp_fin_timeout                                       # 查看
 $ echo 'net.ipv4.tcp_fin_timeout = 30' >> /etc/sysctl.conf              # 修改FIN_WAIT状态的TCP连接的超时时间
 ```
 
-#### TCP连接SYN队列大小（默认值：128）
+#### TCP连接SYN队列大小，值越大可建立的TCP连接数越多（默认值：2048）
 ```bash
 $ sysctl net.ipv4.tcp_max_syn_backlog                                   # 查看TCP连接SYN队列大小
 
