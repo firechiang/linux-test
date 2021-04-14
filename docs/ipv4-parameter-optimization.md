@@ -109,7 +109,7 @@ $ sysctl net.ipv4.tcp_max_syn_backlog                                   # 查看
 $ echo 'net.ipv4.tcp_max_syn_backlog = 4096' >> /etc/sysctl.conf        # 修改TCP连接SYN队列大小
 ```
 
-#### TCP最大连接数限制，值越大可建立的TCP连接数越多，建议设置和net.ipv4.tcp_max_syn_backlog的值相同（默认值：4096）
+#### TCP最大连接数限制，值越大可建立的TCP连接数越多，建议设置和net.ipv4.tcp_max_syn_backlog的值相同（默认值：4096，注意：不要超过系统可打开的文件句柄数，同时也建议最好是65535）
 ```bash
 $ sysctl net.core.somaxconn                                             # 查看TCP最大连接数限制
 
