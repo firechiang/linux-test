@@ -115,8 +115,8 @@ $ echo 'net.core.netdev_max_backlog = 2048' >> /etc/sysctl.conf         # 修改
 ```
 
 #### TCP SYN Cookies，防范DDOS攻击，防止SYN队列被占满，建议使用默认值（默认值：1）
- - 如果值是1的话，是直接将客户端请求建立连接的syn报文，通过算法生成cookies，再直接响应，而不会为将syn报文加入syn队列，从而避免syn队列被塞满导致新请求无法连接
- - 客户端确认要连接就会携带cookies，服务端再验证cookies，如果正确，正式建立连接。同时也表示客户端是正常的客户端，而不是DDOS攻击
+ - 如果值是1的话，是直接将客户端请求建立连接的syn报文，通过算法生成cookies，再直接响应，而不会为将syn报文加入syn队列，从而避免syn队列被塞满导致新TCP请求无法连接
+ - 客户端确认要连接就会携带cookies，服务端再验证cookies，如果正确，正式建立TCP连接。同时也表示客户端是正常的客户端，而不是DDOS攻击
 ```bash
 $ sysctl net.ipv4.tcp_syncookies                                        # 查看 TCP SYN Cookies
 
