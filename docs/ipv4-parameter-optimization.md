@@ -113,7 +113,7 @@ $ echo 'net.ipv4.tcp_max_syn_backlog = 4096' >> /etc/sysctl.conf        # 修改
 ```bash
 $ sysctl net.core.somaxconn                                             # 查看TCP最大连接数限制
 
-$ echo 'net.core.somaxconn = 4096' >> /etc/sysctl.conf                  # 修改TCP最大连接数限制
+$ echo 'net.core.somaxconn = 65535' >> /etc/sysctl.conf                 # 修改TCP最大连接数限制
 ```
 
 #### 网络设备的收发包的队列大小，值越大可建立的TCP连接数越多（默认值：1000）
