@@ -51,12 +51,14 @@ OSI七层网络模型         |  TCP/IP四层概念模型  |  对应的网络协
  - 第一次握手客户端向服务端发送syn报文请求建立连接而且会携带一个seq数值（seq=x）
  - 第二次握手服务端向客户端发送syn报文确认建立连接而且会携带seq和ack数值（seq=y，ack=客户端发来的seq数值加1），客户端检查ack值是否是加1以后的
  - 第三次握手客户端向服务端发送ack报文确认建立连接而且会携带一个ack数值（ack=服务端发来的seq数值加1），服务端检查ack值是否是加1以后的，如果是连接建立成功
+
 ![object](https://github.com/firechiang/linux-test/blob/master/linux-test-lvs/image/tcp-shake.svg)
 #### TCP四次挥手简要（说明：客户端和服务端都可以发起用于断开连接）
  - 第一次挥手客户端向服务端发送fin断开连接报文而且会携带seq和ack数值（seq=x+2，ack=y+1（注意：ack表示对上一个报文做出回应，我已经收到了））
  - 第二次挥手服务端向客户端发送ack响应报文（响应断开连接的报文）和传输未完成的数据（有时候可能存在未完成传输的数据）并携带ack数值（ack=x+3）
  - 第三次挥手服务端向客户端发送fin断开连接报文而且会携带seq数值（seq=y+1（注意：seq的值就是请求断开连接报文ack的值））
  - 第四次挥手客户端向服务端发送ack确认断开连接报文而且会携带ack数值（ack=y+2（就是在原有的基础上再加1））服务端收到报文判断ack的值是否是加1的，如果是断开连接
+
 ![object](https://github.com/firechiang/linux-test/blob/master/linux-test-lvs/image/tcp-wave.svg)
 
 
