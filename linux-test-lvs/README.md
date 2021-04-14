@@ -47,7 +47,10 @@ OSI七层网络模型         |  TCP/IP四层概念模型  |  对应的网络协
  ```
 #### TCP/IP分层协议模型
 ![object](https://github.com/firechiang/linux-test/blob/master/linux-test-lvs/image/tcp-ip.svg)
-#### TCP三次握手简要（注意：握手主要用于建立连接）
+#### TCP三次握手简要
+ - 第一次握手客户端向服务端发送syn请求建立连接报文而且会携带一个seq数值（seq=x）
+ - 第二次握手服务端向客户端发送syn确认建立连接报文而且会携带seq和ack数值（seq=y，ack=客户端发来的seq数值加1），客户端检查ack值是否是加1以后的
+ - 第三次握手客户端向服务端发送ack确认建立连接报文而且会携带一个ack数值（ack=服务端发来的seq数值加1），服务端检查ack值是否是加1以后的
 ![object](https://github.com/firechiang/linux-test/blob/master/linux-test-lvs/image/tcp-shake.svg)
 #### TCP四次挥手简要（注意：挥手主要用于关闭连接）
 ![object](https://github.com/firechiang/linux-test/blob/master/linux-test-lvs/image/tcp-wave.svg)
