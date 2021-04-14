@@ -106,7 +106,9 @@ $ echo 'net.ipv4.tcp_fin_timeout = 30' >> /etc/sysctl.conf              # 修改
 ```bash
 $ sysctl net.ipv4.tcp_fastopen                                          # 查看是否开启TCP Fast_Open功能
 
-$ echo 'net.ipv4.tcp_fastopen = 1' >> /etc/sysctl.conf                  # 启用TCP Fast_Open功能
+$ echo 'net.ipv4.tcp_fastopen = 1' >> /etc/sysctl.conf                  # Linux作为客户端时启用TCP Fast_Open功能
+$ echo 'net.ipv4.tcp_fastopen = 2' >> /etc/sysctl.conf                  # Linux作为服务端时启用TCP Fast_Open功能
+$ echo 'net.ipv4.tcp_fastopen = 3' >> /etc/sysctl.conf                  # Linux作为服务端或客户端都启用TCP Fast_Open功能
 ```
 
 #### TCP连接SYN队列大小，值越大可建立的TCP连接数越多（默认值：2048）
