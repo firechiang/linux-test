@@ -79,7 +79,14 @@ $ sysctl net.ipv4.tcp_retries2                                          # 查看
 $ echo 'net.ipv4.tcp_retries2 = 3' >> /etc/sysctl.conf                  # 修改活动TCP连接重传次数
 ```
 
-#### TCP三次握手的syn/ack阶段，重试次数，默认值：5，建议设为2-3
+#### Linux作为客户端发起TCP三次握手的syn/ack阶段，重试次数，默认值：6，建议设为2-3
+```bash
+$ sysctl net.ipv4.tcp_syn_retries                                       # 查看TCP三次握手的syn/ack阶段，重试次数
+
+$ echo 'net.ipv4.tcp_syn_retries = 3' >> /etc/sysctl.conf               # 修改TCP三次握手的syn/ack阶段，重试次数
+```
+
+#### Linux作为服务端接收TCP三次握手的syn/ack阶段，重试次数，默认值：5，建议设为2-3
 ```bash
 $ sysctl net.ipv4.tcp_synack_retries                                    # 查看TCP三次握手的syn/ack阶段，重试次数
 
