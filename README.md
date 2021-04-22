@@ -41,6 +41,7 @@ Calling ioctl() to re-read partition table.
 Syncing disks.
 
 $ fdisk -l                               # 查看机器硬盘信息，找到新添加的硬盘和分区名称
+# $ mkfs.btrfs -f /dev/sdb1              # 格式化新建分区（将新建分区/dev/sdb1格式化成btrfs格式）
 $ mkfs -t ext4 /dev/sdb1                 # 格式化新建分区（将新建分区/dev/sdb1格式化成ext4格式）
 
 # 修改/etc/fstab文件，将磁盘分区/dev/sdb1，永久的挂载到/mnt/test_data目录，磁盘格式是ext4
