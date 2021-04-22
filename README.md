@@ -46,7 +46,11 @@ $ mkfs -t ext4 /dev/sdb1                 # 格式化新建分区（将新建分�
 
 # 修改/etc/fstab文件，将磁盘分区/dev/sdb1，永久的挂载到/mnt/test_data目录，磁盘格式是ext4
 # 注意：要重启机器才能生效（命令：reboot）
-$ echo /dev/sdb1 /mnt/test_data ext4 defaults 0 0 >> /etc/fstab                       
+$ echo /dev/sdb1 /mnt/test_data ext4 defaults 0 0 >> /etc/fstab
+
+# 修改/etc/fstab文件，将磁盘分区/dev/sdb1，永久的挂载到/mnt/test_data目录，磁盘格式是btrfs
+# 注意：要重启机器才能生效（命令：reboot）
+#$ echo /dev/sdb1 /mnt/test_data btrfs defaults 0 0 >> /etc/fstab
 ```
 
 #### 十三、修改时区（注意：建议系统安装时要设置好）
