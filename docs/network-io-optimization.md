@@ -13,6 +13,8 @@ $ echo 'fs.nr_open = 1048576' >> /etc/sysctl.conf           # 修改单进程最
 $ ulimit -n                                                 # 查看单进程最大打开网络连接文件句柄数量
 $ echo '* soft nofile 655350' >> /etc/security/limits.conf  # 修改单进程（警告限定）最大打开网络连接文件句柄数量，不能大于 hard nofile（严格限定） 的值，建议值： 655350
 $ echo '* hard nofile 655350' >> /etc/security/limits.conf  # 修改单进程（严格限定）最大打开网络连接文件句柄数量，不能大于 fs.nr_open 的值
+# 使修改的单进程最大打开网络连接文件句柄数量立即生效
+$ sysctl -p
 
 # 查询文件句柄数信息(这个只能做查询)，三个值，分别是：系统中已分配的文件句柄数量，已分配但没有使用的文件句柄数量，最大的文件句柄号
 $ sysctl fs.file-nr    
