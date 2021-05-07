@@ -7,14 +7,14 @@ $ echo 'fs.aio-max-nr = 1048576' >> /etc/sysctl.conf        # 修改系统同时
 
 $ sysctl fs.nr_open                                         # 查看单进程最大打开文件句柄数量
 $ echo 'fs.nr_open = 1048576' >> /etc/sysctl.conf           # 修改单进程最大打开文件句柄数量（进程限制）（建议使用默认值）
+# 使修改配置立即生效
+$ sysctl -p
 
 
 # 修改单进程最大打开网络连接文件句柄数量（注意：/etc/ssh/sshd_config 配置文件里面，须有 UsePAM yes 配置（这个配置一般默认都是有的），否则限制无法生效）
 $ ulimit -n                                                 # 查看单进程最大打开网络连接文件句柄数量
 $ echo '* soft nofile 655350' >> /etc/security/limits.conf  # 修改单进程（警告限定）最大打开网络连接文件句柄数量，不能大于 hard nofile（严格限定） 的值，建议值： 655350
 $ echo '* hard nofile 655350' >> /etc/security/limits.conf  # 修改单进程（严格限定）最大打开网络连接文件句柄数量，不能大于 fs.nr_open 的值
-# 使修改的单进程最大打开网络连接文件句柄数量立即生效
-$ sysctl -p
 
 # 查询文件句柄数信息(这个只能做查询)，三个值，分别是：系统中已分配的文件句柄数量，已分配但没有使用的文件句柄数量，最大的文件句柄号
 $ sysctl fs.file-nr    
