@@ -232,6 +232,47 @@ $ kill -17 PID                           # 子进程给父进程发送信息
 $ kill -1 PID                            # 要进程重读配置文件（注意：这个需要程序实现了这个功能）
 ```
 
+#### 二十、Trojan代理服务搭建
+```bash
+# 生成证书私钥(注意：该命令需要填写密码，该密码要记住下面还要用)
+$ openssl genrsa -des3 -out trojan-server.key 2048
+# 生成CSR(证书签名请求)
+# openssl req -new -key trojan-server.key -out trojan-server.csr -subj "/C=CN/ST=BeiJing/L=BeiJing/O=trjm/OU=trjm/CN=127.0.0.1"
+$ openssl req -new -key trojan-server.key -out trojan-server.csr -subj "/C=CN/ST=BeiJing/L=BeiJing/O=组织名称(可以随便写)/OU=组织部门名称(可以随便写)/CN=服务器地址或IP"
+# 去除私钥中的密码
+$ openssl rsa -in trojan-server.key -out trojan-server.key
+# 生成自签名SSL证书（自此证书就创建好了）
+$ openssl x509 -req -days 3650 -in trojan-server.csr -signkey trojan-server.key -out trojan-server.crt
+
+# 下载Trojan服务器文件
+$ wget https://github.com/trojan-gfw/trojan/releases/download/v1.16.0/trojan-1.16.0-linux-amd64.tar.xz
+
+# 下载好后解压找到config.json配置文件修改相关配置然后测试启动trojan服务
+$ nohup /home/trojan/trojan -c "/home/trojan/config.json" -l "/home/trojan/logs/trojan.log" > /dev/null 1>&2 &
+
+# 在/lib/systemd/system/目录下创建trojan.service文件并复制下面代码到文件中保存（该文件用于服务器自启动）
+[Unit]
+Description=trojan
+After=network.target
+
+[Service]
+Type=simple
+PIDFile=/home/trojan/pid/trojan.pid
+ExecStart=/home/trojan/trojan -c "/home/trojan/config.json" -l "/home/trojan/logs/trojan.log"
+ExecReload=
+ExecStop=/home/trojan/trojan
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
+
+
+# 启动Trojan服务
+$ systemctl start trojan.service
+# 设置开机启动Trojan服务
+$ systemctl enable trojan.service  
+```
+
 [1]: https://github.com/firechiang/linux-test/tree/master/docs/ipv4-parameter-optimization.md
 [2]: https://github.com/firechiang/linux-test/tree/master/docs/network-io-optimization.md
 [3]: https://github.com/firechiang/linux-test/tree/master/docs/numa-explain.md
